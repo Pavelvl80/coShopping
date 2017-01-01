@@ -1,0 +1,5 @@
+.idea
+web/META-INF
+web/WEB-INF/classes
+web/WEB-INF/lib
+target
