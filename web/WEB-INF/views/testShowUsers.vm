@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-    $result
+    #foreach ($user in $result)
+    $user.firstName <br>
+    #end
 </body>
 </html>

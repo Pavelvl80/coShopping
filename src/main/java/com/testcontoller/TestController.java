@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Edvard Piri on 13.01.2017.
@@ -30,15 +31,16 @@ public class TestController {
         ModelAndView modelAndView = new ModelAndView("testUser.vm");
         testDAO.save(user);
 
+        modelAndView.addObject("result", user.getFirstName());
         return modelAndView;
     }
 
-    @RequestMapping(value = "/showUser")
+    @RequestMapping(value = "/showUsers")
     public ModelAndView showUser() {
-        ModelAndView modelAndView = new ModelAndView("testUser.vm");
-        Users user = testDAO.getUsers().get(0);
+        ModelAndView modelAndView = new ModelAndView("testShowUsers.vm");
+        List<Users> users = testDAO.getUsers();
 
-        modelAndView.addObject("result", user);
+        modelAndView.addObject("result", users);
 
         return modelAndView;
     }
