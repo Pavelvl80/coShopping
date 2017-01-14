@@ -24,15 +24,21 @@ public class TestController {
     }
 
     @RequestMapping(value = "/newUser")
-    public void newUser() {
+    public ModelAndView newUser() {
         Date date = new Date();
         Users user = new Users("Lotar", "Hagen", "lotar@mail.ru", "+380312323", date, "horinis");
+        ModelAndView modelAndView = new ModelAndView("testUser.vm");
         testDAO.save(user);
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/showUser")
     public ModelAndView showUser() {
         ModelAndView modelAndView = new ModelAndView("testUser.vm");
+        Users user = testDAO.getUsers().get(0);
+
+        modelAndView.addObject("result", user);
 
         return modelAndView;
     }

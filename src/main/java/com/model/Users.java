@@ -31,7 +31,7 @@ public class Users {
 
     private Long isActive;
     //this field is not stored in db
-    private boolean isLogged;
+//    private boolean isLogged;
 
     public Users() {
     }
@@ -47,7 +47,7 @@ public class Users {
         this.lastLogin = new Date();
         this.dateRegistered = new Date();
         this.isActive = 0L;
-        this.isLogged = true;
+//        this.isLogged = true;
         this.isEmailVerified = 0L;
         this.isPhoneVerified = 0L;
     }
@@ -141,9 +141,9 @@ public class Users {
         return isActive;
     }
 
-    public boolean isLogged() {
-        return isLogged;
-    }
+//    public boolean isLogged() {
+//        return isLogged;
+//    }
 
     public void setId(Long id) {
         this.id = id;
@@ -213,7 +213,7 @@ public class Users {
         this.isActive = isActive;
     }
 
-    public void setLogged(boolean logged) {
-        isLogged = logged;
-    }
+//    public void setLogged(boolean logged) {
+//        isLogged = logged;
+//    }
 }
