@@ -24,7 +24,8 @@ public class Users {
     private String rating;
     private String attributes;
 
-//    private List<Users> friends;
+    private Users friend;
+    private List<Users> friends;
 
     private Date lastLogin;
     private Date dateRegistered;
@@ -105,7 +106,6 @@ public class Users {
         return adsPublished;
     }
 
-
     @OneToMany(targetEntity = Ad.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Ad> getAdsJoined() {
         return adsJoined;
@@ -121,10 +121,16 @@ public class Users {
         return attributes;
     }
 
-//    @OneToMany(targetEntity = Users.class, mappedBy = "id", )
-//    public List<Users> getFriends() {
-//        return friends;
-//    }
+    @ManyToOne
+    @JoinColumn(name = "FRIEND_ID")
+    public Users getFriend() {
+        return friend;
+    }
+
+    @OneToMany(targetEntity = Users.class, mappedBy = "friend", cascade = CascadeType.ALL)
+    public List<Users> getFriends() {
+        return friends;
+    }
 
     @Column(name = "LAST_LOGIN")
     public Date getLastLogin() {
@@ -197,9 +203,13 @@ public class Users {
         this.attributes = attributes;
     }
 
-//    public void setFriends(List<Users> friends) {
-//        this.friends = friends;
-//    }
+    public void setFriend(Users friend) {
+        this.friend = friend;
+    }
+
+        public void setFriends(List<Users> friends) {
+        this.friends = friends;
+    }
 
     public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
