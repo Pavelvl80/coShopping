@@ -1,4 +1,4 @@
-package com;
+package com.model;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * Created by Edvard Piri on 25.12.2016.
  */
-//@Entity
-//@Table(name = "USERS")
+@Entity
+@Table(name = "USERS")
 public class Users {
     private Long id;
     private String firstName;
@@ -24,13 +24,13 @@ public class Users {
     private String rating;
     private String attributes;
 
-    private List<Users> friends;
+//    private List<Users> friends;
 
     private Date lastLogin;
     private Date dateRegistered;
 
-    //this field is not stored in db
     private Long isActive;
+    //this field is not stored in db
     private boolean isLogged;
 
     public Users() {
@@ -46,97 +46,97 @@ public class Users {
 
         this.lastLogin = new Date();
         this.dateRegistered = new Date();
-        this.isActive = 1L;
+        this.isActive = 0L;
         this.isLogged = true;
         this.isEmailVerified = 0L;
         this.isPhoneVerified = 0L;
     }
 
-//    @Id
-//    @SequenceGenerator(name = "USERS_SEQ", sequenceName = "USERS_SEQ", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERS_SEQ")
+    @Id
+    @SequenceGenerator(name = "USERS_SEQ", sequenceName = "USERS_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERS_SEQ")
     public Long getId() {
         return id;
     }
 
-//    @Column(name = "FIRST_NAME")
+    @Column(name = "FIRST_NAME")
     public String getFirstName() {
         return firstName;
     }
 
-//    @Column(name = "LAST_NAME")
+    @Column(name = "LAST_NAME")
     public String getLastName() {
         return lastName;
     }
 
-//    @Column(name = "EMAIL")
+    @Column(name = "EMAIL")
     public String getEmail() {
         return email;
     }
 
-//    @Column(name = "PHONE")
+    @Column(name = "PHONE")
     public String getPhone() {
         return phone;
     }
 
-//    @Column(name = "IS_EMAIL_VERIFIED")
+    @Column(name = "IS_EMAIL_VERIFIED")
     public Long getIsEmailVerified() {
         return isEmailVerified;
     }
 
-//    @Column(name = "IS_PHONE_VERIFIED")
+    @Column(name = "IS_PHONE_VERIFIED")
     public Long getIsPhoneVerified() {
         return isPhoneVerified;
     }
 
-//    @Column(name = "DATE_OF_BIRTH")
+    @Column(name = "DATE_OF_BIRTH")
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-//    @Column(name = "CITY")
+    @Column(name = "CITY")
     public String getCity() {
         return city;
     }
 
-//    @OneToMany
-//    @Column(name = "ADS_PUBLISHED")
+    //TODO ManyToOne in Ad
+    @OneToMany(targetEntity = Ad.class, mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Ad> getAdsPublished() {
         return adsPublished;
     }
 
-//    @OneToMany
-//    @Column(name = "ADS_JOINED")
+
+    @OneToMany(targetEntity = Ad.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Ad> getAdsJoined() {
         return adsJoined;
     }
 
-//    @Column(name = "RATING")
+    @Column(name = "RATING")
     public String getRating() {
         return rating;
     }
 
-//    @Column(name = "ATTRIBUTES")
+    @Column(name = "ATTRIBUTES")
     public String getAttributes() {
         return attributes;
     }
 
-//    @Column(name = "FRIENDS")
-    public List<Users> getFriends() {
-        return friends;
-    }
+//    @OneToMany(targetEntity = Users.class, mappedBy = "id", )
+//    public List<Users> getFriends() {
+//        return friends;
+//    }
 
-//    @Column(name = "LAST_LOGIN")
+    @Column(name = "LAST_LOGIN")
     public Date getLastLogin() {
         return lastLogin;
     }
 
-//    @Column(name = "DATE_REGISTERED")
+    @Column(name = "DATE_REGISTERED")
     public Date getDateRegistered() {
         return dateRegistered;
     }
 
-//    @Column(name = "IS_ACTIVE")
+    @Column(name = "IS_ACTIVE")
     public Long getIsActive() {
         return isActive;
     }
@@ -197,9 +197,9 @@ public class Users {
         this.attributes = attributes;
     }
 
-    public void setFriends(List<Users> friends) {
-        this.friends = friends;
-    }
+//    public void setFriends(List<Users> friends) {
+//        this.friends = friends;
+//    }
 
     public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
