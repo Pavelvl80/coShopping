@@ -24,8 +24,7 @@ public class Users {
     private String rating;
     private String attributes;
 
-    private Users friend;
-    private List<Users> friends;
+    private List<FriendRelation> friends;
 
     private Date lastLogin;
     private Date dateRegistered;
@@ -48,7 +47,7 @@ public class Users {
         this.lastLogin = new Date();
         this.dateRegistered = new Date();
         this.isActive = 0L;
-//        this.isLogged = true;
+//        this.isLogged = false;
         this.isEmailVerified = 0L;
         this.isPhoneVerified = 0L;
     }
@@ -101,12 +100,12 @@ public class Users {
     }
 
     //TODO ManyToOne in Ad
-    @OneToMany(targetEntity = Ad.class, mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Ad.class, mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Ad> getAdsPublished() {
         return adsPublished;
     }
 
-    @OneToMany(targetEntity = Ad.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Ad.class, mappedBy = "participants", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Ad> getAdsJoined() {
         return adsJoined;
     }
@@ -121,14 +120,8 @@ public class Users {
         return attributes;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "FRIEND_ID")
-    public Users getFriend() {
-        return friend;
-    }
-
-    @OneToMany(targetEntity = Users.class, mappedBy = "friend", cascade = CascadeType.ALL)
-    public List<Users> getFriends() {
+    @OneToMany(targetEntity = FriendRelation.class, mappedBy = "TO_USER_ID", cascade = CascadeType.ALL)
+    public List<FriendRelation> getFriends() {
         return friends;
     }
 
@@ -203,11 +196,8 @@ public class Users {
         this.attributes = attributes;
     }
 
-    public void setFriend(Users friend) {
-        this.friend = friend;
-    }
 
-        public void setFriends(List<Users> friends) {
+    public void setFriends(List<FriendRelation> friends) {
         this.friends = friends;
     }
 

@@ -5,8 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-    #foreach ($user in $result)
-    $user.firstName <br>
+    #foreach ($participants in $result)
+    $participants.firstName <br>
     #end
 </body>
 </html>

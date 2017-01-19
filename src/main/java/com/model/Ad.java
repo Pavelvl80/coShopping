@@ -1,6 +1,8 @@
 package com.model;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Edvard Piri on 25.12.2016.
@@ -12,12 +14,19 @@ import javax.persistence.*;
 @Table(name = "AD")
 public class Ad {
     private Long id;
-    private Users creator;
-    private Users user;
+    private String itemName;
+    private Integer totalPrice;
+    private String city;
+    private Date dateExpires;
+    private Date dateCreated;
+    private Date dateEdited;
+    private Integer isActive;
+
+    private Users owner;
+    private List<Users> participants;
 
     public Ad() {
     }
-
 
     @Id
     @SequenceGenerator(name = "AD_SEQ", sequenceName = "AD_SEQ", allocationSize = 1)
@@ -26,28 +35,91 @@ public class Ad {
         return id;
     }
 
+    @Column
+    public String getItemName() {
+        return itemName;
+    }
+
+    @Column
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
+
+    @Column
+    public String getCity() {
+        return city;
+    }
+
+    @Column
+    public Date getDateExpires() {
+        return dateExpires;
+    }
+
+    @Column
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    @Column
+    public Date getDateEdited() {
+        return dateEdited;
+    }
+
+    @Column
+    public Integer getIsActive() {
+        return isActive;
+    }
+
     @ManyToOne
     @JoinColumn(name = "CREATOR_ID")
-    public Users getCreator() {
-        return creator;
+    public Users getOwner() {
+        return owner;
     }
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
-    public Users getUser() {
-        return user;
+    public List<Users> getParticipants() {
+        return participants;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setCreator(Users creator) {
-        this.creator = creator;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setDateExpires(Date dateExpires) {
+        this.dateExpires = dateExpires;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public void setDateEdited(Date dateEdited) {
+        this.dateEdited = dateEdited;
+    }
+
+    public void setIsActive(Integer isActive) {
+        this.isActive = isActive;
+    }
+
+    public void setOwner(Users owner) {
+        this.owner = owner;
+    }
+
+    public void setParticipants(List<Users> participants) {
+        this.participants = participants;
     }
 
     //create new project
