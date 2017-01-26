@@ -1,5 +1,7 @@
 package com.model;
 
+import oracle.sql.DATE;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -20,12 +22,25 @@ public class Ad {
     private Date dateExpires;
     private Date dateCreated;
     private Date dateEdited;
-    private Integer isActive;
+    private Long isActive;
 
     private Users owner;
     private List<Users> participants;
 
     public Ad() {
+    }
+
+    public Ad(String itemName, Integer totalPrice, String city, Users owner, List<Users> participants) {
+        this.itemName = itemName;
+        this.totalPrice = totalPrice;
+        this.city = city;
+        this.owner = owner;
+        this.participants = participants;
+
+        this.dateExpires = new Date();
+        this.dateCreated = new Date();
+        this.dateEdited = new Date();
+        this.isActive = 0l;
     }
 
     @Id
@@ -35,49 +50,48 @@ public class Ad {
         return id;
     }
 
-    @Column
+    @Column(name = "ITEM_NAME")
     public String getItemName() {
         return itemName;
     }
 
-    @Column
+    @Column(name = "TOTAL_PRICE")
     public Integer getTotalPrice() {
         return totalPrice;
     }
 
-    @Column
+    @Column(name = "CITY")
     public String getCity() {
         return city;
     }
 
-    @Column
+    @Column(name = "DATE_EXPIRES")
     public Date getDateExpires() {
         return dateExpires;
     }
 
-    @Column
+    @Column(name = "DATE_CREATED")
     public Date getDateCreated() {
         return dateCreated;
     }
 
-    @Column
+    @Column(name = "DATE_EDITED")
     public Date getDateEdited() {
         return dateEdited;
     }
 
-    @Column
-    public Integer getIsActive() {
+    @Column(name = "IS_ACTIVE")
+    public Long getIsActive() {
         return isActive;
     }
 
     @ManyToOne
-    @JoinColumn(name = "CREATOR_ID")
+    @JoinColumn(name = "OWNER_ID")
     public Users getOwner() {
         return owner;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @OneToMany(targetEntity = Users.class, mappedBy = "id", cascade = CascadeType.ALL)
     public List<Users> getParticipants() {
         return participants;
     }
@@ -110,7 +124,7 @@ public class Ad {
         this.dateEdited = dateEdited;
     }
 
-    public void setIsActive(Integer isActive) {
+    public void setIsActive(Long isActive) {
         this.isActive = isActive;
     }
 

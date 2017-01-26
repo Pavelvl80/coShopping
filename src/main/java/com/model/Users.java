@@ -99,7 +99,6 @@ public class Users {
         return city;
     }
 
-    //TODO ManyToOne in Ad
     @OneToMany(targetEntity = Ad.class, mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Ad> getAdsPublished() {
         return adsPublished;
@@ -120,7 +119,7 @@ public class Users {
         return attributes;
     }
 
-    @OneToMany(targetEntity = FriendRelation.class, mappedBy = "TO_USER_ID", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = FriendRelation.class, mappedBy = "toUserId", cascade = CascadeType.ALL)
     public List<FriendRelation> getFriends() {
         return friends;
     }

@@ -9,10 +9,18 @@ import javax.persistence.*;
 @Table(name = "FRIEND_RELATION")
 public class FriendRelation {
 
+    private Long Id;
     private Long fromUserId;
     private Long toUserId;
 
     public FriendRelation() {
+    }
+
+    @Id
+    @SequenceGenerator(name = "FRIEND_RELATION_SEQ", sequenceName = "FRIEND_RELATION_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FRIEND_RELATION_SEQ")
+    public Long getId() {
+        return Id;
     }
 
     @ManyToOne
@@ -22,9 +30,13 @@ public class FriendRelation {
     }
 
     @ManyToOne
-    @JoinColumn(name = "FROM_USER_ID")
+    @JoinColumn(name = "TO_USER_ID")
     public Long getToUserId() {
         return toUserId;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 
     public void setFromUserId(Long fromUserId) {
