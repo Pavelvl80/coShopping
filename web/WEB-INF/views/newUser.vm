@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:form="http://www.w3.org/1999/html">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.autosize/3.0.18/autosize.min.js"></script>
+    <title>Registeer</title>
+</head>
+<body>
+<div class="in"></div>
+<form:form action="/register-request" modelAttribute="user" method="post">
+    <input type="text" id="userName" name="userName" placeholder="User name"/>
+    <input type="text" id="firstName" name="firstName" placeholder="First name"/>
+    <input type="text" id="lastName" name="lastName" placeholder="Last name"/>
+    <input type="text" id="email" name="email" placeholder="Email"/>
+    <input type="text" id="password" name="password" placeholder="Password"/>
+    <input type="text" id="phone" name="phone" placeholder="Phone"/>
+    <input type="text" id="dateOfBirth" name="dateOfBirth" placeholder="Date of birth"/>
+    <input type="text" id="city" name="city" placeholder="City"/>
+
+    <button type="submit">сохранить</button>
+</form:form>
+
+<script
+
+</body>
+</html>

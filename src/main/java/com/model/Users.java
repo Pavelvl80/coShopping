@@ -1,6 +1,7 @@
 package com.model;
 
 import javax.persistence.*;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
@@ -9,11 +10,13 @@ import java.util.List;
  */
 @Entity
 @Table(name = "USERS")
-public class Users {
+public class Users extends BaseEntity{
     private Long id;
+    private String userName;
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
     private String phone;
     private Long isEmailVerified;
     private Long isPhoneVerified;
@@ -34,9 +37,16 @@ public class Users {
 //    private boolean isLogged;
 
     public Users() {
+        this.lastLogin = new Date();
+        this.dateRegistered = new Date();
+        this.isActive = 0L;
+        this.isEmailVerified = 0L;
+        this.isPhoneVerified = 0L;
     }
 
-    public Users(String firstName, String lastName, String email, String phone, Date dateOfBirth, String city) {
+    public Users(String userName, String firstName, String lastName, String email, String password, String phone, Date dateOfBirth, String city) {
+        this.userName = userName;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -47,9 +57,16 @@ public class Users {
         this.lastLogin = new Date();
         this.dateRegistered = new Date();
         this.isActive = 0L;
-//        this.isLogged = false;
         this.isEmailVerified = 0L;
         this.isPhoneVerified = 0L;
+    }
+
+    public static void setCurrent(HttpSession session, Users curUser) {
+        session.setAttribute("logged", curUser);
+    }
+
+    public static Users Current(HttpSession session) {
+        return (Users) session.getAttribute("logged");
     }
 
     @Id
@@ -57,6 +74,11 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERS_SEQ")
     public Long getId() {
         return id;
+    }
+
+    @Column(name = "USER_NAME")
+    public String getUserName() {
+        return userName;
     }
 
     @Column(name = "FIRST_NAME")
@@ -72,6 +94,11 @@ public class Users {
     @Column(name = "EMAIL")
     public String getEmail() {
         return email;
+    }
+
+    @Column(name = "PASSWORD")
+    public String getPassword() {
+        return password;
     }
 
     @Column(name = "PHONE")
@@ -147,6 +174,10 @@ public class Users {
         this.id = id;
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -157,6 +188,10 @@ public class Users {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setPhone(String phone) {

@@ -10,8 +10,8 @@ import javax.persistence.*;
 public class FriendRelation {
 
     private Long Id;
-    private Long fromUserId;
-    private Long toUserId;
+    private Users fromUser;
+    private Users toUser;
 
     public FriendRelation() {
     }
@@ -25,25 +25,25 @@ public class FriendRelation {
 
     @ManyToOne
     @JoinColumn(name = "FROM_USER_ID")
-    public Long getFromUserId() {
-        return fromUserId;
+    public Users getFromUserId() {
+        return fromUser;
     }
 
     @ManyToOne
     @JoinColumn(name = "TO_USER_ID")
-    public Long getToUserId() {
-        return toUserId;
+    public Users getToUserId() {
+        return toUser;
     }
 
     public void setId(Long id) {
         Id = id;
     }
 
-    public void setFromUserId(Long fromUserId) {
-        this.fromUserId = fromUserId;
+    public void setFromUserId(Users fromUserId) {
+        this.fromUser = fromUserId;
     }
 
-    public void setToUserId(Long toUserId) {
-        this.toUserId = toUserId;
+    public void setToUserId(Users toUserId) {
+        this.toUser = toUserId;
     }
 }

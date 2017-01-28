@@ -25,12 +25,12 @@ public class Ad {
     private Long isActive;
 
     private Users owner;
-    private List<Users> participants;
+    private Users participants;
 
     public Ad() {
     }
 
-    public Ad(String itemName, Integer totalPrice, String city, Users owner, List<Users> participants) {
+    public Ad(String itemName, Integer totalPrice, String city, Users owner, Users participants) {
         this.itemName = itemName;
         this.totalPrice = totalPrice;
         this.city = city;
@@ -91,8 +91,9 @@ public class Ad {
         return owner;
     }
 
-    @OneToMany(targetEntity = Users.class, mappedBy = "id", cascade = CascadeType.ALL)
-    public List<Users> getParticipants() {
+    @ManyToOne
+    @JoinColumn(name = "PARTICIPANTS_ID")
+    public Users getParticipants() {
         return participants;
     }
 
@@ -132,7 +133,7 @@ public class Ad {
         this.owner = owner;
     }
 
-    public void setParticipants(List<Users> participants) {
+    public void setParticipants(Users participants) {
         this.participants = participants;
     }
 
