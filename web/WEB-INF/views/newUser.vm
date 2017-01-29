@@ -2,7 +2,6 @@
 <html lang="ru" xmlns:form="http://www.w3.org/1999/html">
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
@@ -11,20 +10,17 @@
 </head>
 <body>
 <div class="in"></div>
-<form:form action="/register-request" modelAttribute="user" method="post">
-    <input type="text" id="userName" name="userName" placeholder="User name"/>
-    <input type="text" id="firstName" name="firstName" placeholder="First name"/>
-    <input type="text" id="lastName" name="lastName" placeholder="Last name"/>
-    <input type="text" id="email" name="email" placeholder="Email"/>
-    <input type="text" id="password" name="password" placeholder="Password"/>
-    <input type="text" id="phone" name="phone" placeholder="Phone"/>
-    <input type="text" id="dateOfBirth" name="dateOfBirth" placeholder="Date of birth"/>
-    <input type="text" id="city" name="city" placeholder="City"/>
+<form action="/register-request" method="post">
+    <input type="text" name="userName" placeholder="User name"/> <br>
+    <input type="text" name="firstName" placeholder="First name"/> <br>
+    <input type="text" name="lastName" placeholder="Last name"/> <br>
+    <input type="text" name="email" placeholder="Email"/> <br>
+    <input type="text" name="password" placeholder="Password"/><br>
+    <input type="text" name="phone" placeholder="Phone"/><br>
+    <input type="text" name="city" placeholder="City"/><br>
 
     <button type="submit">сохранить</button>
-</form:form>
-
-<script
+</form>
 
 </body>
 </html>

@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "USERS")
-public class Users extends BaseEntity{
+public class Users extends BaseEntity {
     private Long id;
     private String userName;
     private String firstName;
@@ -37,6 +37,7 @@ public class Users extends BaseEntity{
 //    private boolean isLogged;
 
     public Users() {
+        this.dateOfBirth = new Date();
         this.lastLogin = new Date();
         this.dateRegistered = new Date();
         this.isActive = 0L;
@@ -46,10 +47,10 @@ public class Users extends BaseEntity{
 
     public Users(String userName, String firstName, String lastName, String email, String password, String phone, Date dateOfBirth, String city) {
         this.userName = userName;
-        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
         this.phone = phone;
         this.dateOfBirth = dateOfBirth;
         this.city = city;
@@ -60,6 +61,22 @@ public class Users extends BaseEntity{
         this.isEmailVerified = 0L;
         this.isPhoneVerified = 0L;
     }
+    //    public Users(String userName, String firstName, String lastName, String email, String password, String phone, Date dateOfBirth, String city) {
+//        this.userName = userName;
+//        this.password = password;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.phone = phone;
+//        this.dateOfBirth = dateOfBirth;
+//        this.city = city;
+//
+//        this.lastLogin = new Date();
+//        this.dateRegistered = new Date();
+//        this.isActive = 0L;
+//        this.isEmailVerified = 0L;
+//        this.isPhoneVerified = 0L;
+//    }
 
     public static void setCurrent(HttpSession session, Users curUser) {
         session.setAttribute("logged", curUser);
