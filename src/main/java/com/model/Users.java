@@ -12,7 +12,6 @@ import java.util.List;
 @Table(name = "USERS")
 public class Users extends BaseEntity {
     private Long id;
-    private String userName;
     private String firstName;
     private String lastName;
     private String email;
@@ -45,8 +44,7 @@ public class Users extends BaseEntity {
         this.isPhoneVerified = 0L;
     }
 
-    public Users(String userName, String firstName, String lastName, String email, String password, String phone, Date dateOfBirth, String city) {
-        this.userName = userName;
+    public Users(String firstName, String lastName, String email, String password, String phone, Date dateOfBirth, String city) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -91,11 +89,6 @@ public class Users extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERS_SEQ")
     public Long getId() {
         return id;
-    }
-
-    @Column(name = "USER_NAME")
-    public String getUserName() {
-        return userName;
     }
 
     @Column(name = "FIRST_NAME")
@@ -189,10 +182,6 @@ public class Users extends BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public void setFirstName(String firstName) {

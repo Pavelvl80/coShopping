@@ -15,11 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserDAOImpl extends AbstractDAOImpl<Users> implements UserDAO {
 
     @Override
-    public Users getByEmailOrUserName(String email, String userName) {
-        String hql = "from Users t where t.email = :email or t.userName = :userName";
+    public Users getByEmail(String email) {
+        String hql = "from Users t where t.email = :email";
         Query query = getSession().createQuery(hql);
         query.setParameter("email", email);
-        query.setParameter("userName", userName);
         return (Users) query.uniqueResult();
     }
 

@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
         if (user == null)
             return null;
 
-        Users checkUser = userDAO.getByEmailOrUserName(user.getEmail(), user.getUserName());
+        Users checkUser = userDAO.getByEmail(user.getEmail());
 
         if (checkUser != null)
             return null;

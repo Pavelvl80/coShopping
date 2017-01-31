@@ -61,9 +61,20 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @RequestMapping("/log-out-request")
+    public ResponseEntity<String> logout(HttpSession session) {
+        Users.setCurrent(session, null);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @RequestMapping("/register")
     public ModelAndView register() {
         return new ModelAndView("newUser.vm");
+    }
+
+    @RequestMapping(name = "/")
+    public ModelAndView index() {
+        return new ModelAndView("index.vm");
     }
 
     //interceptor
