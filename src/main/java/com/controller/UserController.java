@@ -47,12 +47,9 @@ public class UserController {
     }
 
     @RequestMapping("/login-request")
+    //TODO it is not registerUser method :)
     public ResponseEntity<String> registerUser(HttpSession session, @RequestParam String email, @RequestParam String password) {
-//        if(curUser == null)
-//            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-//        //userService.getByEmailAndPassword
-
-//        Users.setCurrent(session, user);
+        //TODO rename method login please, bad name here
         Users curUser = userService.login(email, password);
         if (curUser == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -67,6 +67,7 @@ public class UserControllerIntegrationTest {
 
     @Test
     public void mainPageTest() throws Exception {
+        //TODO compilation error (!)
         this.mockMvc.perform(get("/"));
                 .andExpect(status().isOk())
                 .andExpect(view().name("index.vm"))
