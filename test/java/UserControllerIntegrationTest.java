@@ -1,4 +1,3 @@
-import com.model.Users;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = "file:web/WEB-INF/dispatcher-servlet.xml")
+@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/dispatcher-servlet.xml")
 @Transactional
 public class UserControllerIntegrationTest {
     @Autowired
@@ -68,7 +67,7 @@ public class UserControllerIntegrationTest {
     @Test
     public void mainPageTest() throws Exception {
         //TODO compilation error (!)
-        this.mockMvc.perform(get("/"));
+        this.mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index.vm"))
                 .andExpect(model().attributeDoesNotExist("user"))
