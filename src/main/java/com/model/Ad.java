@@ -14,7 +14,7 @@ import java.util.List;
 //TODO move to hibernate
 @Entity
 @Table(name = "AD")
-public class Ad {
+public class Ad extends BaseEntity {
     private Long id;
     private String itemName;
     private Integer totalPrice;

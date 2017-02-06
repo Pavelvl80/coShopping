@@ -16,12 +16,10 @@ import javax.persistence.PersistenceContext;
 @Transactional
 public class AbstractDAOImpl<T extends BaseEntity> implements AbstractDAO<T> {
 
+
     @PersistenceContext
     EntityManager entityManager;
 
-    public Session getSession() {
-        return entityManager.unwrap(Session.class);
-    }
 
     @Override
     public T save(T t) {
@@ -29,5 +27,10 @@ public class AbstractDAOImpl<T extends BaseEntity> implements AbstractDAO<T> {
             entityManager.persist(t);
         else entityManager.merge(t);
         return t;
+    }
+
+
+    public Session getSession() {
+        return entityManager.unwrap(Session.class);
     }
 }

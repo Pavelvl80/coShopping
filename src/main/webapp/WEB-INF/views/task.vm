@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:form="http://www.w3.org/1999/html">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.autosize/3.0.18/autosize.min.js"></script>
+    <title>Registeer</title>
+</head>
+<body>
+    <input type="text" id="email" placeholder="email"/> <br>
+    <button onclick="getads($('#email').val())">сохранить</button>
+
+    <script>
+        debugger;
+        function getads(email) {
+            $.ajax({
+                url: '/get-ads-by-email-request',
+                data: ({
+                    email: email,
+                }),
+                success: function (data) {
+                    debugger;
+                    alert(data);
+                },
+                error: function (xhr) {
+                    debugger;
+                    alert(xhr);
+                }
+            });
+        };
+    </script>
+
+</body>
+</html>

@@ -31,8 +31,4 @@ public class UserDAOImpl extends AbstractDAOImpl<Users> implements UserDAO {
         return (Users) query.uniqueResult();
     }
 
-    @Override
-    public Users save(Users users) {
-        return super.save(users);
-    }
 }

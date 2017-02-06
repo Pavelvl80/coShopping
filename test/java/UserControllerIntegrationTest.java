@@ -1,3 +1,4 @@
+import com.config.AppConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/dispatcher-servlet.xml")
+@ContextConfiguration(classes = AppConfig.class)
 @Transactional
 public class UserControllerIntegrationTest {
     @Autowired
@@ -66,12 +67,19 @@ public class UserControllerIntegrationTest {
 
     @Test
     public void mainPageTest() throws Exception {
-        //TODO compilation error (!)
         this.mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index.vm"))
                 .andExpect(model().attributeDoesNotExist("user"))
                 .andExpect(model().attributeDoesNotExist("test"));
+    }
+
+    @Test
+    public void dunno() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/get-ads-by-email-request").param("email","test@test.com"))
+//                .andExpect(content().contentType("application/json;charset=utf-8"))
+//                .andExpect(content().string("{\"error\":\"Wrong password\"}"))
+                .andExpect(status().isCreated());
     }
 
 }
