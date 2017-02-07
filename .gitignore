@@ -1,5 +1,8 @@
 .idea
-web/META-INF
-web/WEB-INF/classes
-web/WEB-INF/lib
+
 target
+/lib/
+/target/
+/socialnetwork.iml
+/src/main/webapp/WEB-INF/lib/
+/src/main/webapp/WEB-INF/classes/

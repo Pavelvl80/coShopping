@@ -55,11 +55,11 @@ public class AdControllerIntegrationTest {
                 .andExpect(status(). isOk());
     }
 
-    @Test
-    public void getAdsByEmailUserWithAdsTest() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/get-ads-by-email-request").param("email","wrong@wrong.com"))
-//                .andExpect(content().contentType("application/json;charset=utf-8"))
-//                .andExpect(content().string("{\"error\":\"Wrong password\"}"))
-                .andExpect(status().isNotFound());
-    }
+//    @Test
+//    public void getAdsByEmailUserWithAdsTest() throws Exception {
+//        this.mockMvc.perform(MockMvcRequestBuilders.get("/get-ads-by-email-request").param("email","wrong@wrong.com"))
+////                .andExpect(content().contentType("application/json;charset=utf-8"))
+////                .andExpect(content().string("{\"error\":\"Wrong password\"}"))
+//                .andExpect(status().isNotFound());
+//    }
 }
