@@ -10,7 +10,9 @@
 </head>
 <body>
     <input type="text" id="email" placeholder="email"/> <br>
-    <button onclick="getads($('#email').val())">сохранить</button>
+    <button onclick="getads($('#email').val())">send</button>
+    <div id="result"><br></div>
+
 
     <script>
         debugger;
@@ -22,11 +24,11 @@
                 }),
                 success: function (data) {
                     debugger;
-                    alert(data);
+                    $('#result').append(data);
+
                 },
                 error: function (xhr) {
-                    debugger;
-                    alert(xhr);
+                    alert('something is not that way');
                 }
             });
         };

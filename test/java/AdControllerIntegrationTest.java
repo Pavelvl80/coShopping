@@ -12,17 +12,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * Created by Edvard Piri on 29.01.2017.
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = AppConfig.class)
 @Transactional
-public class UserControllerIntegrationTest {
+public class AdControllerIntegrationTest {
     @Autowired
     private WebApplicationContext wac;
 
@@ -34,44 +31,35 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    public void loginWrongPasswordTest() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/login-request").param("email","test@test.com").param("password","wrong"))
+    public void getAdsByEmailWrongEmailTest() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/get-ads-by-email-request").param("email","wrong@wrong.com"))
 //                .andExpect(content().contentType("application/json;charset=utf-8"))
 //                .andExpect(content().string("{\"error\":\"Wrong password\"}"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
     }
 
     @Test
-    public void loginWrongEmailTest() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/login-request").param("email","wrong@wrong.com").param("password","qwerty"))
+    public void getAdsByEmailCorrectEmailTest() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/get-ads-by-email-request").param("email","lotar@smail.ru"))
 //                .andExpect(content().contentType("application/json;charset=utf-8"))
 //                .andExpect(content().string("{\"error\":\"Wrong password\"}"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void loginWrongPasswordAndEmailTest() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/login-request").param("email","wrong").param("password","wrong"))
+    public void getAdsByEmailCorrectEmailUserWithoutAdsTest() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/get-ads-by-email-request").param("email","lotar@mail.ru"))
+                .andExpect(content().string("\"__ALL_ADS__\": \"\", \"__EXPENSIVE__\": \"non\", \"__CHEAPEST__\": \"non\""))
 //                .andExpect(content().contentType("application/json;charset=utf-8"))
 //                .andExpect(content().string("{\"error\":\"Wrong password\"}"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status(). isOk());
     }
 
     @Test
-    public void loginCorrectPasswordAndEmailTest() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/login-request").param("email","test@test.com").param("password","qwerty"))
+    public void getAdsByEmailUserWithAdsTest() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/get-ads-by-email-request").param("email","wrong@wrong.com"))
 //                .andExpect(content().contentType("application/json;charset=utf-8"))
 //                .andExpect(content().string("{\"error\":\"Wrong password\"}"))
-                .andExpect(status().isCreated());
+                .andExpect(status().isNotFound());
     }
-
-    @Test
-    public void mainPageTest() throws Exception {
-        this.mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index.vm"))
-                .andExpect(model().attributeDoesNotExist("user"))
-                .andExpect(model().attributeDoesNotExist("test"));
-    }
-
 }

@@ -18,7 +18,7 @@ public class AbstractDAOImpl<T extends BaseEntity> implements AbstractDAO<T> {
 
 
     @PersistenceContext
-    EntityManager entityManager;
+    public EntityManager entityManager;
 
 
     @Override

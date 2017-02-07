@@ -17,10 +17,4 @@ public interface UserService {
 
     Users findByEmail(String email);
 
-    List<Ad> getAllAdsByOwnerEmail(Users users);
-
-    Ad getExpensiveAd(List<Ad> ad);
-
-    Ad getCheapestAd(List<Ad> ad);
-
 }

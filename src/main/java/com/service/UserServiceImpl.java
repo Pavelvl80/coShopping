@@ -1,5 +1,6 @@
 package com.service;
 
+import com.dao.AbstractDAOImpl;
 import com.dao.AdDAO;
 import com.dao.UserDAO;
 import com.model.Ad;
@@ -47,21 +48,4 @@ public class UserServiceImpl implements UserService {
         return userDAO.getByEmail(email);
     }
 
-    @Override
-    public List<Ad> getAllAdsByOwnerEmail(Users user) {
-        if (user == null)
-            return null;
-        List<Ad> ads = adDAO.getAllByUserId(user.getId());
-        return ads;
-    }
-
-    @Override
-    public Ad getExpensiveAd(List<Ad> ad) {
-        return null;
-    }
-
-    @Override
-    public Ad getCheapestAd(List<Ad> ad) {
-        return null;
-    }
 }

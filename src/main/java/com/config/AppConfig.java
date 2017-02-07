@@ -10,6 +10,7 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
 import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
@@ -22,6 +23,7 @@ import java.util.Properties;
 @EnableWebMvc
 @ComponentScan({"com"})
 @Configuration
+@EnableTransactionManagement
 public class AppConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -54,7 +56,7 @@ public class AppConfig {
 
 
     @Bean
-    public DataSource dataSource() {
+    static public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
         dataSource.setUrl("jdbc:oracle:thin:@project.cznha1udzika.eu-central-1.rds.amazonaws.com:1521:orcl");
@@ -65,7 +67,7 @@ public class AppConfig {
 
 
     @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+    static public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(emf);
 
@@ -77,7 +79,6 @@ public class AppConfig {
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
-
 
 
     private Properties additionalProperties() {

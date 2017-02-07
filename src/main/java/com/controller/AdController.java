@@ -4,6 +4,7 @@ import com.dao.AdDAO;
 import com.google.gson.Gson;
 import com.model.Ad;
 import com.model.Users;
+import com.service.AdService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +25,9 @@ import java.util.Map;
  */
 @Controller
 public class AdController {
+
     @Autowired
-    AdDAO adDAO;
+    AdService adService;
 
     @Autowired
     UserService userService;
@@ -33,27 +35,33 @@ public class AdController {
     @RequestMapping("/get-ads-by-email-request")
     public ResponseEntity getAdsByEmail(@RequestParam String email) {
 
-        if (email.equals(null) || email == "")
+        if (email == null || email == "")
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         Users user = userService.findByEmail(email);
+        if (user == null) return new ResponseEntity(HttpStatus.NOT_FOUND);
 
-        if(user == null) return new ResponseEntity(HttpStatus.NOT_FOUND);
+        List<Ad> ads = adService.getAllAdsByOwnerEmail(user);
+        if (ads == null) return new ResponseEntity(HttpStatus.NOT_FOUND);
 
-        List<Ad> ads = userService.getAllAdsByOwnerEmail(user);
+        Ad expensiveAd = adService.getExpensiveAd(ads);
+        Ad cheapestAd = adService.getCheapestAd(ads);
 
-        Ad expensiveAd = userService.getExpensiveAd(ads);
-
-        Ad cheapestAd = userService.getCheapestAd(ads);
-        String adsJson = "null";
-        if(ads != null) adsJson = ads.toString();
-
-        String json = "\"allAds\": \"" + ads + "\", \"expensive\": \"" + expensiveAd + "\", \"cheapest\": \"" + cheapestAd + "\"";
-        return new ResponseEntity(json, HttpStatus.OK);
+        return new ResponseEntity<>(adService.toAdsAllExpChip(ads, expensiveAd, cheapestAd), HttpStatus.OK);
     }
 
     @RequestMapping("/get-all-ads")
     public ModelAndView getAllAds() {
         return new ModelAndView("task.vm");
+    }
+
+    @RequestMapping("/register-ad")
+    public ModelAndView registerAd() {
+        return new ModelAndView("registerAd.vm");
+    }
+
+    @RequestMapping("/ad")
+    public ModelAndView adMapping() {
+        return new ModelAndView("ad.vm");
     }
 }

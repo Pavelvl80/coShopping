@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.model.Ad;
+import com.model.Users;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,7 @@ import java.util.List;
 public interface AdDAO {
     Ad save(Ad ad);
 
-    List<Ad> getAllByUserId(Long id);
+    List<Ad> getAllByUserId(Users user);
 
 
 }

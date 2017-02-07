@@ -19,10 +19,10 @@ import java.util.List;
 public class AdDAOImpl<T> extends AbstractDAOImpl<Ad> implements AdDAO {
 
     @Override
-    public List<Ad> getAllByUserId(Long id) {
-        String hql = "from Ad t where t.id = :id";
+    public List<Ad> getAllByUserId(Users user) {
+        String hql = "from Ad t where t.owner = :user";
         Query query = getSession().createQuery(hql);
-        query.setParameter("id", id);
+        query.setParameter("user", user);
         return query.list();
     }
 }

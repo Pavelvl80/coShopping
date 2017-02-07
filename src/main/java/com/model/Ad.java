@@ -141,4 +141,21 @@ public class Ad extends BaseEntity {
     //use the same spring config as in one
     //use the same maven - pom, just project name
     //build with maven
+
+
+    @Override
+    public String toString() {
+        return "Ad{" +
+                "id=" + id +
+                ", itemName='" + itemName + '\'' +
+                ", totalPrice=" + totalPrice +
+                ", city='" + city + '\'' +
+                ", dateExpires=" + dateExpires +
+                ", dateCreated=" + dateCreated +
+                ", dateEdited=" + dateEdited +
+                ", isActive=" + isActive +
+                ", owner=" + owner +
+                ", participants=" + participants +
+                '}';
+    }
 }
