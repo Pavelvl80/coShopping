@@ -28,6 +28,10 @@ public class Ad extends BaseEntity {
     private Users participants;
 
     public Ad() {
+        this.dateExpires = new Date();
+        this.dateCreated = new Date();
+
+        this.isActive = 1l;
     }
 
     public Ad(String itemName, Integer totalPrice, String city, Users owner, Users participants) {

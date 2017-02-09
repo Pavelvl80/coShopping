@@ -17,5 +17,5 @@ public interface AdService {
 
     Ad getCheapestAd(List<Ad> ads);
 
-    String toAdsAllExpChip(List<Ad> ads, Ad expensiveAd, Ad cheapestAd);
+    Ad register(Ad ad);
 }

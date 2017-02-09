@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:form="http://www.w3.org/1999/html">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.autosize/3.0.18/autosize.min.js"></script>
+    <title>Registeer</title>
+</head>
+<body>
+<input type="text" id="email" placeholder="email"/> <br>
+<input type="text" id="password" placeholder="password"/> <br>
+<button onclick="login($('#email').val(), $('#password').val())">send</button>
+<div id="result"><br></div>
+
+
+<script>
+    function login(email, password) {
+        debugger;
+        $.ajax({
+            url: '/login-request',
+            data: ({
+                email: email,
+                password: password,
+            }),
+            success: function (data) {
+                debugger;
+                alert("success");
+
+            },
+            error: function (xhr) {
+                debugger;
+                alert('bad login or password');
+            }
+        });
+    };
+</script>
+
+</body>
+</html>

@@ -58,19 +58,8 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public String toAdsAllExpChip(List<Ad> ads, Ad expensiveAd, Ad cheapestAd) {
-        String all = "non";
-        String checkedExpensiveAd = "non";
-        String checkedCheapestAd = "non";
-        if (ads != null) {
-            all = "";
-            for (Ad ad : ads) all = all + ad.toString() + "  ";
-        }
-
-        if (expensiveAd != null) checkedExpensiveAd = expensiveAd.toString();
-        if (cheapestAd != null) checkedCheapestAd = cheapestAd.toString();
-
-        return "\"__ALL_ADS__\": \"" + all + "\", \"__EXPENSIVE__\": \"" + checkedExpensiveAd + "\", \"__CHEAPEST__\": \"" + checkedCheapestAd + "\"";
+    public Ad register(Ad ad) {
+       return adDAO.save(ad);
     }
 
 }

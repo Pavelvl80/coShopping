@@ -2,6 +2,7 @@ package com.controller;
 
 import com.model.Users;
 import com.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
@@ -60,6 +61,11 @@ public class UserController {
     public ResponseEntity<String> logout(HttpSession session) {
         Users.setCurrent(session, null);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping("/login")
+    public ModelAndView login() {
+        return new ModelAndView("login.vm");
     }
 
     @RequestMapping("/register")

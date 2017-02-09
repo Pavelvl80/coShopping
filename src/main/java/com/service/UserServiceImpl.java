@@ -26,12 +26,10 @@ public class UserServiceImpl implements UserService {
     public Users register(Users user) {
         if (user == null)
             return null;
-
         Users checkUser = userDAO.getByEmail(user.getEmail());
 
         if (checkUser != null)
             return null;
-
         userDAO.save(user);
         return user;
     }
