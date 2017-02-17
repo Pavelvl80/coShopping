@@ -69,8 +69,8 @@ public class AdServiceImpl implements AdService {
     @Override
     public String getAllAdsByOwnerEmailService(List<Ad> all, String expensive, String cheapest) throws Exception {
         Map<String, Object> mapObject = new HashMap<>();
-        Ad expensiveAd = null;
-        Ad cheapestAd = null;
+        Ad expensiveAd;
+        Ad cheapestAd;
 
         if (expensive.equals("true")) {
             expensiveAd = getExpensiveAd(all);
@@ -82,10 +82,9 @@ public class AdServiceImpl implements AdService {
         }
         if(cheapest.equals("false") && expensive.equals("false"))
             mapObject.put("all", all);
-        StringWriter stringWriter = new StringWriter();
+
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.writeValue(stringWriter, all);
-        String result = stringWriter.toString();
+        String result = objectMapper.writeValueAsString(mapObject);
         return result;
     }
 }

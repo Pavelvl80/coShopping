@@ -43,7 +43,9 @@ public class AdController {
 
         if (email == null || email.equals("")) return new ResponseEntity(HttpStatus.BAD_REQUEST);
         List<Ad> ads = adService.getAllAdsByOwnerEmail(email);
+        if (ads == null) return new ResponseEntity(HttpStatus.NOT_FOUND);
         String result = adService.getAllAdsByOwnerEmailService(ads, expensive, cheapest);
+
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
