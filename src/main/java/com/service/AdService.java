@@ -20,5 +20,5 @@ public interface AdService {
 
     Ad register(Ad ad);
 
-    String getAdsEmailService(List<Ad> all, String expensive, String cheapest) throws Exception;
+    String getAdsByEmailService(List<Ad> all, String expensive, String cheapest) throws Exception;
 }
