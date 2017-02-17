@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,10 +67,24 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public String AdToJson(Map<String, Object> ads) throws Exception {
+    public String getAllAdsByOwnerEmailService(List<Ad> all, String expensive, String cheapest) throws Exception {
+        Map<String, Object> mapObject = new HashMap<>();
+        Ad expensiveAd = null;
+        Ad cheapestAd = null;
+
+        if (expensive.equals("true")) {
+            expensiveAd = getExpensiveAd(all);
+            mapObject.put("expensive", expensiveAd);
+        }
+        if (cheapest.equals("true")) {
+            cheapestAd = getCheapestAd(all);
+            mapObject.put("cheapest", cheapestAd);
+        }
+        if(cheapest.equals("false") && expensive.equals("false"))
+            mapObject.put("all", all);
         StringWriter stringWriter = new StringWriter();
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.writeValue(stringWriter, ads);
+        objectMapper.writeValue(stringWriter, all);
         String result = stringWriter.toString();
         return result;
     }

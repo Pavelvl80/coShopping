@@ -43,24 +43,7 @@ public class AdController {
 
         if (email == null || email.equals("")) return new ResponseEntity(HttpStatus.BAD_REQUEST);
         List<Ad> ads = adService.getAllAdsByOwnerEmail(email);
-        if (ads == null) return new ResponseEntity(HttpStatus.NOT_FOUND);
-        Ad expensiveAd = null;
-        Ad cheapestAd = null;
-        Map<String, Object> mapObject = new HashMap<>();
-
-        if (expensive.equals("true")) {
-            expensiveAd = adService.getExpensiveAd(ads);
-            mapObject.put("expensive", expensiveAd);
-        }
-        if (cheapest.equals("true")) {
-            cheapestAd = adService.getCheapestAd(ads);
-            mapObject.put("cheapest", cheapestAd);
-        }
-        if(cheapest.equals("false") && expensive.equals("false"))
-            mapObject.put("all", ads);
-
-        String result = adService.AdToJson(mapObject);
-
+        String result = adService.getAllAdsByOwnerEmailService(ads, expensive, cheapest);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

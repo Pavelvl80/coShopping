@@ -20,5 +20,5 @@ public interface AdService {
 
     Ad register(Ad ad);
 
-    String AdToJson(Map<String, Object> ads) throws Exception;
+    String getAllAdsByOwnerEmailService(List<Ad> all, String expensive, String cheapest) throws Exception;
 }
