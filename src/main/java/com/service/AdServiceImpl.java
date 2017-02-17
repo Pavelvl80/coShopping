@@ -67,7 +67,7 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public String getAllAdsByOwnerEmailService(List<Ad> all, String expensive, String cheapest) throws Exception {
+    public String getAdsEmailService(List<Ad> all, String expensive, String cheapest) throws Exception {
         Map<String, Object> mapObject = new HashMap<>();
         Ad expensiveAd;
         Ad cheapestAd;
