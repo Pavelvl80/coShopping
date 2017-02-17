@@ -1,5 +1,7 @@
 package com.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -156,7 +158,7 @@ public class Users extends BaseEntity {
         return attributes;
     }
 
-    @OneToMany(targetEntity = FriendRelation.class, mappedBy = "toUserId", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = FriendRelation.class, mappedBy = "toUserId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<FriendRelation> getFriends() {
         return friends;
     }

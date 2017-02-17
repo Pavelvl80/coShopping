@@ -1,3 +1,5 @@
+package com.other;
+
 /**
  * Created by Edvard Piri on 15.01.2017.
  */

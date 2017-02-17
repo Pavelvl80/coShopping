@@ -10,16 +10,27 @@
 </head>
 <body>
     <input type="text" id="email" placeholder="email"/> <br>
-    <button onclick="getads($('#email').val())">send</button>
+    <button onclick="getads($('#email').val())">send</button> <br>
+    <input type="checkbox" id="expensBox"> Most expensive <br>
+    <input type="checkbox" id="cheapBox"> Most cheapest
     <div id="result"><br></div>
 
 
     <script>
         debugger;
         function getads(email) {
+            var expensive = false;
+            var cheapest = false;
+            if($('#expensBox').prop('checked')) {
+                expensive = true;
+            };
+            if($('#cheapBox').prop('checked')) {
+                cheapest = true;
+            };
+
             $.ajax({
-                url: '/get-ads-by-email-request',
-                data: ({
+                url: '/get-ads-by-email/expensive='+expensive+'&cheapest='+cheapest+'',
+                 data: ({
                     email: email,
                 }),
                 success: function (data) {

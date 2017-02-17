@@ -1,3 +1,5 @@
+package com.other;
+
 import com.config.AppConfig;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +37,7 @@ public class UserControllerIntegrationTest {
 
     @Test
     public void loginWrongPasswordTest() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/login-request").param("email","test@test.com").param("password","wrong"))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/login-request").param("email","TestDb@TestDb.com").param("password","wrong"))
 //                .andExpect(content().contentType("application/json;charset=utf-8"))
 //                .andExpect(content().string("{\"error\":\"Wrong password\"}"))
                 .andExpect(status().isBadRequest());

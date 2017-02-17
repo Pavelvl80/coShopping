@@ -1,5 +1,7 @@
 package com.config;
 
+import com.utils.MainInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
 import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
 
@@ -24,7 +28,11 @@ import java.util.Properties;
 @ComponentScan({"com"})
 @Configuration
 @EnableTransactionManagement
-public class AppConfig {
+public class AppConfig extends WebMvcConfigurerAdapter {
+    @Autowired
+    MainInterceptor mainInterceptor;
+
+
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -56,7 +64,7 @@ public class AppConfig {
 
 
     @Bean
-    static public DataSource dataSource() {
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
         dataSource.setUrl("jdbc:oracle:thin:@project.cznha1udzika.eu-central-1.rds.amazonaws.com:1521:orcl");
@@ -67,11 +75,27 @@ public class AppConfig {
 
 
     @Bean
-    static public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(emf);
 
         return transactionManager;
+    }
+
+//    @Bean
+//    public DefaultAnnotationHandlerMapping defaultAnnotationHandlerMapping(){
+//        DefaultAnnotationHandlerMapping bean = new DefaultAnnotationHandlerMapping();
+//        bean.setUseDefaultSuffixPattern(true);
+//        return bean;
+//    }
+
+    //    @Bean
+//    public HandlerInterceptorAdapter mainInterceptor() {
+//
+//    }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(mainInterceptor);
     }
 
 

@@ -1,3 +1,5 @@
+package com.other;
+
 import com.config.AppConfig;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +57,7 @@ public class AdControllerIntegrationTest {
                 .andExpect(status(). isOk());
     }
 
-//    @Test
+//    @TestDb
 //    public void getAdsByEmailUserWithAdsTest() throws Exception {
 //        this.mockMvc.perform(MockMvcRequestBuilders.get("/get-ads-by-email-request").param("email","wrong@wrong.com"))
 ////                .andExpect(content().contentType("application/json;charset=utf-8"))

@@ -25,5 +25,14 @@ public class AdDAOImpl<T> extends AbstractDAOImpl<Ad> implements AdDAO {
         query.setParameter("user", user);
         return query.list();
     }
+
+    @Override
+    public List<Ad> getAllAdsByOwnerEmail(String email) {
+//        String hql = "select case count(t) Users t where t.email = :email, from Ad t where t.owner.email = :email ";
+        String hql = "from Ad t where t.owner.email = :email";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("email", email);
+        return query.list();
+    }
 }
 

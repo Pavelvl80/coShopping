@@ -10,16 +10,16 @@ public class ToJSON {
 
     public String ToJSON() {
         String result = "";
-        for (int i = 0; i < counter; i++) {
+        for (int i = 0; i < this.counter; i++) {
 //            result = "" + keys[counter] + values[counter];
-            result = result + "\"" + keys[i] + "\": \"" + values[i] + "\",";
+            result = result + "\"" + this.keys[i] + "\": \"" + this.values[i] + "\",";
         }
         return result;
     }
 
     public void setParams(String key, Object value) {
-        keys[counter] = key;
-        values[counter] = value;
-        counter++;
+        this.keys[this.counter] = key;
+        this.values[this.counter] = value;
+        this.counter++;
     }
 }

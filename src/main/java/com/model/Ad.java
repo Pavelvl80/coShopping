@@ -1,6 +1,10 @@
 package com.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import oracle.sql.DATE;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,14 +21,16 @@ import java.util.List;
 public class Ad extends BaseEntity {
     private Long id;
     private String itemName;
-    private Integer totalPrice;
+    private Long totalPrice;
     private String city;
     private Date dateExpires;
     private Date dateCreated;
     private Date dateEdited;
     private Long isActive;
 
+    @JsonIgnore
     private Users owner;
+    @JsonIgnore
     private Users participants;
 
     public Ad() {
@@ -34,17 +40,16 @@ public class Ad extends BaseEntity {
         this.isActive = 1l;
     }
 
-    public Ad(String itemName, Integer totalPrice, String city, Users owner, Users participants) {
+    public Ad(String itemName, Long totalPrice, String city, Users owner) {
         this.itemName = itemName;
         this.totalPrice = totalPrice;
         this.city = city;
         this.owner = owner;
-        this.participants = participants;
 
         this.dateExpires = new Date();
         this.dateCreated = new Date();
         this.dateEdited = new Date();
-        this.isActive = 0l;
+        this.isActive = 1l;
     }
 
     @Id
@@ -60,7 +65,7 @@ public class Ad extends BaseEntity {
     }
 
     @Column(name = "TOTAL_PRICE")
-    public Integer getTotalPrice() {
+    public Long getTotalPrice() {
         return totalPrice;
     }
 
@@ -89,6 +94,7 @@ public class Ad extends BaseEntity {
         return isActive;
     }
 
+
     @ManyToOne
     @JoinColumn(name = "OWNER_ID")
     public Users getOwner() {
@@ -109,7 +115,7 @@ public class Ad extends BaseEntity {
         this.itemName = itemName;
     }
 
-    public void setTotalPrice(Integer totalPrice) {
+    public void setTotalPrice(Long totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -140,12 +146,6 @@ public class Ad extends BaseEntity {
     public void setParticipants(Users participants) {
         this.participants = participants;
     }
-
-    //create new project
-    //use the same spring config as in one
-    //use the same maven - pom, just project name
-    //build with maven
-
 
     @Override
     public String toString() {
