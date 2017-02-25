@@ -5,6 +5,8 @@
     <title>Ad</title>
 </head>
 <body>
-   TEST PAGE "Ad"
+    $ad.itemName
+    $ad.totalPrice
+    $ad.city
 </body>
 </html>

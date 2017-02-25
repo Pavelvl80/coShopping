@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <title>Ad</title>
+</head>
+<body>
+    $user.firstName firstName <br>
+    $user.lastName lastName <br>
+    $user.email  email <br>
+    $user.password password <br>
+    $user.phone phone <br>
+    $user.isEmailVerified isEmailVerified <br>
+    $user.isPhoneVerified isPhoneVerified <br>
+    $user.dateOfBirth dateOfBirth <br>
+    $user.city city <br>
+    $user.rating rating <br>
+    $user.attributes attributes <br>
+    $user.friends friends <br>
+    $user.lastLogin lastLogin <br>
+    $user.dateRegistered dateRegistered <br>
+    $user.isActive isActive <br>
+</body>
+</html>

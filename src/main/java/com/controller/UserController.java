@@ -2,18 +2,14 @@ package com.controller;
 
 import com.model.Users;
 import com.service.UserService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -25,6 +21,7 @@ import java.util.Date;
  */
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     UserService userService;
@@ -34,17 +31,17 @@ public class UserController {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         sdf.setLenient(true);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 
 
     @RequestMapping("/register-request")
-    public ResponseEntity<String> registerUser(HttpSession session, @ModelAttribute Users user) {
+    public String registerUser(HttpSession session, @ModelAttribute Users user) throws Exception {
         Users checkUser = userService.register(user);
         if (checkUser == null)
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
+            throw new Exception("User exist");
         Users.setCurrent(session, user);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return "redirect:/";
     }
 
     @RequestMapping("/login-request")
@@ -52,7 +49,6 @@ public class UserController {
         Users curUser = userService.login(email, password);
         if (curUser == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
         Users.setCurrent(session, curUser);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -61,6 +57,38 @@ public class UserController {
     public ResponseEntity<String> logout(HttpSession session) {
         Users.setCurrent(session, null);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    public ModelAndView userProfile(@PathVariable String userId) {
+        Users user = userService.getUserById(Long.parseLong(userId));
+        ModelAndView modelAndView = new ModelAndView("UserProfile.vm");
+        modelAndView.addObject("user", user);
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/edit{userId}", method = RequestMethod.GET)
+    public ModelAndView editUser(@PathVariable String userId) {
+        Users user = userService.getUserById(Long.valueOf(userId));
+        ModelAndView modelAndView = new ModelAndView("editUser.vm");
+        modelAndView.addObject("user", user);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/edit{userId}", method = RequestMethod.POST)
+    public String editUserRequest(@ModelAttribute Users newUser, @PathVariable String userId) {
+        //TODO get old user from cash
+        Users user = userService.getUserById(Long.valueOf(userId));
+        newUser.setId(user.getId());
+        newUser.setDateOfBirth(user.getDateOfBirth());
+        newUser.setAdsPublished(user.getAdsPublished());
+        newUser.setAdsJoined(user.getAdsJoined());
+        newUser.setFriends(user.getFriends());
+        newUser.setLastLogin(user.getLastLogin());
+        newUser.setDateRegistered(user.getDateRegistered());
+        userService.save(newUser);
+        return "redirect:/user/edit" + newUser.getId();
     }
 
     @RequestMapping("/login")
@@ -73,10 +101,6 @@ public class UserController {
         return new ModelAndView("newUser.vm");
     }
 
-    @RequestMapping(name = "/")
-    public ModelAndView index() {
-        return new ModelAndView("index.vm");
-    }
 
     //interceptor
 }

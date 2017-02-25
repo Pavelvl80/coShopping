@@ -32,4 +32,11 @@ public class UserDAOImpl extends AbstractDAOImpl<Users> implements UserDAO {
         return (Users) query.uniqueResult();
     }
 
+    @Override
+    public Users getUserById(Long id) {
+        String hql = "from Users t where t.id = :id";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("id", id);
+        return (Users) query.uniqueResult();
+    }
 }

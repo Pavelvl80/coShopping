@@ -7,10 +7,8 @@ import com.utils.ToJSON;
 import com.service.AdService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.io.StringWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Edvard Piri on 04.02.2017.
@@ -49,18 +44,25 @@ public class AdController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-
     @RequestMapping("/register-ad-request")
     public ResponseEntity<String> registerAdRequest(HttpSession session, @ModelAttribute Ad ad) {
         Users curUser = Users.Current(session);
         if (curUser == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("location", "/");
         ad.setOwner(curUser);
         adService.register(ad);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @RequestMapping("/Ad{AdId}")
+    public ModelAndView userProfile(@PathVariable String AdId) {
+        Ad ad = adService.getAbById(Long.parseLong(AdId));
+        ModelAndView modelAndView = new ModelAndView("ad.vm");
+        modelAndView.addObject("ad", ad);
+        return modelAndView;
+    }
+
+
 
     @RequestMapping("/get-all-ads")
     public ModelAndView getAllAds() {

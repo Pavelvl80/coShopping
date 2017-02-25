@@ -20,5 +20,7 @@ public interface AdDAO {
 
     List<Ad> getAllAdsByOwnerEmail(String email);
 
+    Ad getAdById(Long id);
+
 
 }

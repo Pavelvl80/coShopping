@@ -28,11 +28,23 @@ public class AdDAOImpl<T> extends AbstractDAOImpl<Ad> implements AdDAO {
 
     @Override
     public List<Ad> getAllAdsByOwnerEmail(String email) {
-//        String hql = "select case count(t) Users t where t.email = :email, from Ad t where t.owner.email = :email ";
+        String checkRequest = "from Users t where t.email = :email";
+        Query checkQuery = getSession().createQuery(checkRequest);
+        checkQuery.setParameter("email", email);
+        if (checkQuery == null)
+            return null;
         String hql = "from Ad t where t.owner.email = :email";
         Query query = getSession().createQuery(hql);
         query.setParameter("email", email);
         return query.list();
+    }
+
+    @Override
+    public Ad getAdById(Long id) {
+        String hql = "from Users t where t.id = :id";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("id", id);
+        return (Ad) query.uniqueResult();
     }
 }
 

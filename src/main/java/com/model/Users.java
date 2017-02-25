@@ -86,6 +86,7 @@ public class Users extends BaseEntity {
         return (Users) session.getAttribute("logged");
     }
 
+    @JsonIgnore
     @Id
     @SequenceGenerator(name = "USERS_SEQ", sequenceName = "USERS_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERS_SEQ")
@@ -108,6 +109,7 @@ public class Users extends BaseEntity {
         return email;
     }
 
+    @JsonIgnore
     @Column(name = "PASSWORD")
     public String getPassword() {
         return password;

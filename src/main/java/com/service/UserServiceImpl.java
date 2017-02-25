@@ -46,6 +46,15 @@ public class UserServiceImpl implements UserService {
         return userDAO.getByEmail(email);
     }
 
+    @Override
+    public Users getUserById(Long id) {
+        return userDAO.getUserById(id);
+    }
 
-
+    @Override
+    public Users save(Users user) {
+        if(user == null)
+            return null;
+        return userDAO.save(user);
+    }
 }

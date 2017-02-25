@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="in"></div>
-<form action="/register-request" method="post">
+<form action="/register-request" method="post" onsubmit="/">
     <input type="text" name="firstName" placeholder="First name"/> <br>
     <input type="text" name="lastName" placeholder="Last name"/> <br>
     <input type="text" name="email" placeholder="Email"/> <br>
@@ -18,8 +18,16 @@
     <input type="text" name="phone" placeholder="Phone"/><br>
     <input type="text" name="city" placeholder="City"/><br>
 
-    <button type="submit">сохранить</button>
+    <button id="button"  type="submit">сохранить</button>
 </form>
+
+##<script>
+##    $(function () {
+##        $('#button').submit (
+##        window.location = "https://google.com"
+##        )
+##    });
+##</script>
 
 </body>
 </html>

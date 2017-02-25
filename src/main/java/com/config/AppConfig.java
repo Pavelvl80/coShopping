@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
 import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
 
@@ -80,6 +81,19 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         transactionManager.setEntityManagerFactory(emf);
 
         return transactionManager;
+    }
+
+    @Bean
+    public SimpleMappingExceptionResolver exceptionResolver() {
+        SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
+
+        Properties exceptionMappings = new Properties();
+        exceptionMappings.put("error", "error.vm");
+        exceptionResolver.setExceptionMappings(exceptionMappings);
+
+        exceptionResolver.setDefaultErrorView("error.vm");
+
+        return exceptionResolver;
     }
 
 //    @Bean

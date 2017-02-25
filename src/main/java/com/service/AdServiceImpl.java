@@ -87,4 +87,9 @@ public class AdServiceImpl implements AdService {
         String result = objectMapper.writeValueAsString(mapObject);
         return result;
     }
+
+    @Override
+    public Ad getAbById(Long id) {
+        return adDAO.getAdById(id);
+    }
 }

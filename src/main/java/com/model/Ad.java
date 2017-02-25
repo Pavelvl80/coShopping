@@ -52,6 +52,7 @@ public class Ad extends BaseEntity {
         this.isActive = 1l;
     }
 
+    @JsonIgnore
     @Id
     @SequenceGenerator(name = "AD_SEQ", sequenceName = "AD_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AD_SEQ")
