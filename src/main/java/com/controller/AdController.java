@@ -28,6 +28,7 @@ import java.util.List;
 @RequestMapping("/ad")
 public class AdController {
 
+    //TODO incapsulation..private is missed
     @Autowired
     AdService adService;
 
@@ -47,7 +48,6 @@ public class AdController {
     public ResponseEntity getAdsByEmail(@RequestParam String email,
                                         @PathVariable String expensive,
                                         @PathVariable String cheapest) throws Exception {
-
         if (email == null || email.equals("")) return new ResponseEntity(HttpStatus.BAD_REQUEST);
         List<Ad> ads = adService.getAllAdsByOwnerEmail(email);
         if (ads == null) return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -84,6 +84,7 @@ public class AdController {
         return modelAndView;
     }
 
+    //TODO methods naming...
     @RequestMapping(value = "/edit{adId}", method = RequestMethod.POST)
     public String editUserRequest(@ModelAttribute Ad newAd, @PathVariable String adId) {
         //TODO get old ad from cash

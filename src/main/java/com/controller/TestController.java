@@ -20,7 +20,7 @@ public class TestController {
     UserService userService;
 
     @RequestMapping("/test-put-db")
-    public ModelAndView testPutDb() throws Exception{
+    public ModelAndView testPutDb() throws Exception {
         Long beforeTime = System.currentTimeMillis();
         Long result = this.TestDAO.testPutDb(this.userService.findByEmail("lotar@smail.ru"));
         ModelAndView modelAndView = new ModelAndView("test/test.vm");
@@ -30,7 +30,7 @@ public class TestController {
     }
 
     @RequestMapping("/test-get-db")
-    public ModelAndView testGetDb() throws Exception{
+    public ModelAndView testGetDb() throws Exception {
         Long beforeTime = System.currentTimeMillis();
         Long result = this.TestDAO.testGetDb();
         ModelAndView modelAndView = new ModelAndView("test/test.vm");
