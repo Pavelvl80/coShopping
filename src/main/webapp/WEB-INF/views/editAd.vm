@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.autosize/3.0.18/autosize.min.js"></script>
+    <title>Ad</title>
+</head>
+<body>
+
+<form action="/ad/edit$ad.id" method="post" onsubmit="/">
+    <input name="itemName" value="$ad.itemName"/> itemName:<br>
+    <input name="totalPrice" value="$ad.totalPrice"/> totalPrice:<br>
+    <input name="city" value="$ad.city"/> city: <br>
+    <input name="dateExpires" value="$ad.dateExpires"/> dateExpires: <br>
+    <input name="dateCreated" value="$ad.dateCreated"/> dateCreated: <br>
+    <input name="dateEdited" value="$ad.dateEdited"/> dateEdited:<br>
+    <input name="isActive" value="$ad.isActive"/> isActive: <br>
+    <button id="button" type="submit">update</button>
+</form>
+
+</body>
+</html>

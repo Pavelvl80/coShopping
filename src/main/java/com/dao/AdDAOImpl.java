@@ -41,7 +41,7 @@ public class AdDAOImpl<T> extends AbstractDAOImpl<Ad> implements AdDAO {
 
     @Override
     public Ad getAdById(Long id) {
-        String hql = "from Users t where t.id = :id";
+        String hql = "from Ad t where t.id = :id";
         Query query = getSession().createQuery(hql);
         query.setParameter("id", id);
         return (Ad) query.uniqueResult();

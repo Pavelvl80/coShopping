@@ -28,7 +28,7 @@ public class UserController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         sdf.setLenient(true);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
@@ -60,8 +60,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-    public ModelAndView userProfile(@PathVariable String userId) {
+    public ModelAndView userProfile(@PathVariable String userId) throws Exception {
         Users user = userService.getUserById(Long.parseLong(userId));
+        if (user == null)
+            throw new Exception();
         ModelAndView modelAndView = new ModelAndView("UserProfile.vm");
         modelAndView.addObject("user", user);
         return modelAndView;
@@ -81,12 +83,11 @@ public class UserController {
         //TODO get old user from cash
         Users user = userService.getUserById(Long.valueOf(userId));
         newUser.setId(user.getId());
-        newUser.setDateOfBirth(user.getDateOfBirth());
         newUser.setAdsPublished(user.getAdsPublished());
         newUser.setAdsJoined(user.getAdsJoined());
         newUser.setFriends(user.getFriends());
-        newUser.setLastLogin(user.getLastLogin());
-        newUser.setDateRegistered(user.getDateRegistered());
+        if (newUser.equals(user))
+            return "redirect:/user/edit";
         userService.save(newUser);
         return "redirect:/user/edit" + newUser.getId();
     }

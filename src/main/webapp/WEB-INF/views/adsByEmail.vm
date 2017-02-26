@@ -29,7 +29,7 @@
             };
 
             $.ajax({
-                url: '/get-ads-by-email/expensive='+expensive+'&cheapest='+cheapest+'',
+                url: '/ad/get-ads-by-email/expensive='+expensive+'&cheapest='+cheapest+'',
                  data: ({
                     email: email,
                 }),

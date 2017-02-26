@@ -4,6 +4,9 @@
     <title>Title</title>
 </head>
 <body>
-Error on server $error
+TODO ERROR PAGE <br>
+(this is a error page, but you will never know what kind of error this is. thx velocity)
+$error
+$e
 </body>
 </html>

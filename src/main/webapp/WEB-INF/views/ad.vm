@@ -5,8 +5,14 @@
     <title>Ad</title>
 </head>
 <body>
-    $ad.itemName
-    $ad.totalPrice
-    $ad.city
+    $ad.itemName item name <br>
+    $ad.totalPrice totalPrice <br>
+    $ad.city city <br>
+    $ad.dateExpires dateExpires <br>
+    $ad.dateCreated dateCreated <br>
+    $ad.dateEdited dateEdited <br>
+    $ad.isActive isActive <br>
+    $ad.owner.id owner id <br>
+
 </body>
 </html>

@@ -25,10 +25,13 @@
     <input name="phone" value="$user.phone"/> Phone: <br>
     <input name="isEmailVerified" value="$user.isEmailVerified"/> Is email verified:<br>
     <input name="isPhoneVerified" value="$user.isPhoneVerified"/> Is phone verified: <br>
+    <input name="dateOfBirth" value="$user.dateOfBirth"/> Date of bith <br>
     <input name="city" value="$user.city"/> City: <br>
     <input name="rating" value="$user.rating"/> Rating: <br>
     <input name="attributes" value="$user.attributes"/> Attributes: <br>
-    <input name="isActive " value="$user.isActive"/> Is active: <br>
+    <input name="lastLogin" value="$user.lastLogin"/> Last login: <br>
+    <input name="dateRegistered" value="$user.dateRegistered"/> Date registered: <br>
+    <input name="isActive" value="$user.isActive"/> Is active: <br>
     <button id="button" type="submit">update</button>
 </form>
 

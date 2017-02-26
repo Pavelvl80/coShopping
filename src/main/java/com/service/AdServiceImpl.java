@@ -92,4 +92,9 @@ public class AdServiceImpl implements AdService {
     public Ad getAbById(Long id) {
         return adDAO.getAdById(id);
     }
+
+    @Override
+    public Ad save(Ad ad) {
+        return adDAO.save(ad);
+    }
 }

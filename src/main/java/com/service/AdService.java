@@ -23,4 +23,6 @@ public interface AdService {
     String getAdsByEmailService(List<Ad> all, String expensive, String cheapest) throws Exception;
 
     Ad getAbById(Long id);
+
+    Ad save(Ad ad);
 }

@@ -88,10 +88,18 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
 
         Properties exceptionMappings = new Properties();
-        exceptionMappings.put("error", "error.vm");
+
+        exceptionMappings.put("java.lang.Exception", "error.vm");
+        exceptionMappings.put("java.lang.RuntimeException", "error.vm");
+
         exceptionResolver.setExceptionMappings(exceptionMappings);
 
-        exceptionResolver.setDefaultErrorView("error.vm");
+        Properties statusCodes = new Properties();
+
+        statusCodes.put("error/404", "404");
+        statusCodes.put("error/error", "500");
+
+        exceptionResolver.setStatusCodes(statusCodes);
 
         return exceptionResolver;
     }
