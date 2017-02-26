@@ -46,6 +46,8 @@ public class UserController {
 
     @RequestMapping("/login-request")
     public ResponseEntity<String> login(HttpSession session, @RequestParam String email, @RequestParam String password) {
+        if(Users.Current(session) != null)
+            return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
         Users curUser = userService.login(email, password);
         if (curUser == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -53,10 +55,10 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping("/log-out-request")
-    public ResponseEntity<String> logout(HttpSession session) {
+    @RequestMapping("/log-out")
+    public String logout(HttpSession session) {
         Users.setCurrent(session, null);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return "redirect:/user/";
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)

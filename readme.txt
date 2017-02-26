@@ -3,7 +3,13 @@ Users in base
 
 works links
 
-/register
-page for register
+user/register
+user/login
+user/log-out
+user/{id}
+user/edit{id}
 
-/get-all-ads-by-email
+ad/register-ad
+ad/get-all-ads
+ad/{id}
+ad/edit(id)

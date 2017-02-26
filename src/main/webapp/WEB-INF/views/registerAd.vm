@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="in"></div>
-<form action="/register-ad-request" method="post">
+<form action="/ad/register-ad-request" method="post">
     <input type="text" name="itemName" placeholder="item Name"/> <br>
     <input type="text" name="totalPrice" placeholder="total Pirce"/> <br>
     <input type="text" name="city" placeholder="city"/> <br>

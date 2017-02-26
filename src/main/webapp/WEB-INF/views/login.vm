@@ -19,14 +19,14 @@
     function login(email, password) {
         debugger;
         $.ajax({
-            url: '/login-request',
+            url: '/user/login-request',
             data: ({
                 email: email,
                 password: password,
             }),
             success: function (data) {
                 debugger;
-                alert("success");
+                window.location.href = http://localhost:8080/;
 
             },
             error: function (xhr) {

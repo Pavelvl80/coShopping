@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="in"></div>
-<form action="/register-request" method="post" onsubmit="/">
+<form action="/user/register-request" method="post" onsubmit="/">
     <input type="text" name="firstName" placeholder="First name"/> <br>
     <input type="text" name="lastName" placeholder="Last name"/> <br>
     <input type="text" name="email" placeholder="Email"/> <br>

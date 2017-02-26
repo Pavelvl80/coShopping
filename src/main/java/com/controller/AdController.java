@@ -106,9 +106,4 @@ public class AdController {
     public ModelAndView registerAd() {
         return new ModelAndView("registerAd.vm");
     }
-
-    @RequestMapping("/ad")
-    public ModelAndView adMapping() {
-        return new ModelAndView("ad.vm");
-    }
 }
