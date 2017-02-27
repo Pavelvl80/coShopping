@@ -9,29 +9,22 @@
     <title>Ad</title>
 </head>
 <body>
-    #if(!$user.rating)
-        #set($user.rating = "")
-    #end
-    #if(!$user.attributes)
-        #set($user.attributes = "")
-    #end
 
-
-<form action="/user/edit$user.id" method="post" onsubmit="/">
-    <input name="firstName" value="$user.firstName"/> First name:<br>
-    <input name="lastName" value="$user.lastName"/> Last name:<br>
-    <input name="email" value="$user.email"/> Email: <br>
-    <input name="password" value="$user.password"/> Password: <br>
-    <input name="phone" value="$user.phone"/> Phone: <br>
-    <input name="isEmailVerified" value="$user.isEmailVerified"/> Is email verified:<br>
-    <input name="isPhoneVerified" value="$user.isPhoneVerified"/> Is phone verified: <br>
-    <input name="dateOfBirth" value="$user.dateOfBirth"/> Date of bith <br>
-    <input name="city" value="$user.city"/> City: <br>
-    <input name="rating" value="$user.rating"/> Rating: <br>
-    <input name="attributes" value="$user.attributes"/> Attributes: <br>
-    <input name="lastLogin" value="$user.lastLogin"/> Last login: <br>
-    <input name="dateRegistered" value="$user.dateRegistered"/> Date registered: <br>
-    <input name="isActive" value="$user.isActive"/> Is active: <br>
+<form action="/user/edit$!user.id" method="post" onsubmit="/">
+    <input name="firstName" value="$!user.firstName"/> First name:<br>
+    <input name="lastName" value="$!user.lastName"/> Last name:<br>
+    <input name="email" value="$!user.email"/> Email: <br>
+    <input name="password" value="$!user.password"/> Password: <br>
+    <input name="phone" value="$!user.phone"/> Phone: <br>
+    <input name="isEmailVerified" value="$!user.isEmailVerified"/> Is email verified:<br>
+    <input name="isPhoneVerified" value="$!user.isPhoneVerified"/> Is phone verified: <br>
+    <input name="dateOfBirth" value="$!user.dateOfBirth"/> Date of bith <br>
+    <input name="city" value="$!user.city"/> City: <br>
+    <input name="rating" value="$!user.rating"/> Rating: <br>
+    <input name="attributes" value="$!user.attributes"/> Attributes: <br>
+    <input name="lastLogin" value="$!user.lastLogin"/> Last login: <br>
+    <input name="dateRegistered" value="$!user.dateRegistered"/> Date registered: <br>
+    <input name="isActive" value="$!user.isActive"/> Is active: <br>
     <button id="button" type="submit">update</button>
 </form>
 

@@ -2,6 +2,7 @@ package com.controller;
 
 import com.model.Users;
 import com.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -26,6 +27,8 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    private static final Logger logger = Logger.getLogger(UserController.class);
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -46,7 +49,7 @@ public class UserController {
 
     @RequestMapping("/login-request")
     public ResponseEntity<String> login(HttpSession session, @RequestParam String email, @RequestParam String password) {
-        if(Users.Current(session) != null)
+        if (Users.Current(session) != null)
             return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
         Users curUser = userService.login(email, password);
         if (curUser == null)
@@ -101,7 +104,7 @@ public class UserController {
 
     @RequestMapping("/register")
     public ModelAndView register() {
-        return new ModelAndView("newUser.vm");
+        return new ModelAndView("registerUser.vm");
     }
 
 

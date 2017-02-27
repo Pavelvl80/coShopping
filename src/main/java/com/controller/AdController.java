@@ -30,10 +30,10 @@ public class AdController {
 
     //TODO incapsulation..private is missed
     @Autowired
-    AdService adService;
+    private AdService adService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -67,7 +67,7 @@ public class AdController {
     }
 
     @RequestMapping("/{AdId}")
-    public ModelAndView userProfile(@PathVariable String AdId) {
+    public ModelAndView adProfile(@PathVariable String AdId) {
         Ad ad = adService.getAbById(Long.parseLong(AdId));
         ModelAndView modelAndView = new ModelAndView("ad.vm");
         modelAndView.addObject("ad", ad);
@@ -75,18 +75,17 @@ public class AdController {
     }
 
     @RequestMapping(value = "/edit{adId}", method = RequestMethod.GET)
-    public ModelAndView editUser(@PathVariable String adId) {
+    public ModelAndView adEdit(@PathVariable String adId) {
         Ad ad = adService.getAbById(Long.valueOf(adId));
-        if(ad == null)
+        if (ad == null)
             throw new NullPointerException();
         ModelAndView modelAndView = new ModelAndView("editAd.vm");
         modelAndView.addObject("ad", ad);
         return modelAndView;
     }
 
-    //TODO methods naming...
     @RequestMapping(value = "/edit{adId}", method = RequestMethod.POST)
-    public String editUserRequest(@ModelAttribute Ad newAd, @PathVariable String adId) {
+    public String adEditRequest(@ModelAttribute Ad newAd, @PathVariable String adId) {
         //TODO get old ad from cash
         Ad ad = adService.getAbById(Long.valueOf(adId));
         newAd.setId(ad.getId());
@@ -95,7 +94,6 @@ public class AdController {
         adService.save(newAd);
         return "redirect:/ad/edit" + ad.getId();
     }
-
 
 
     @RequestMapping("/get-all-ads")

@@ -16,7 +16,9 @@
     <input type="text" name="email" placeholder="Email"/> <br>
     <input type="text" name="password" placeholder="Password"/><br>
     <input type="text" name="phone" placeholder="Phone"/><br>
+    <input type="text" name="dateOfBirth" placeholder="dateOfBirth"/>
     <input type="text" name="city" placeholder="City"/><br>
+    <input type="text" name="attributes" placeholder="attributes"/><br>
 
     <button id="button"  type="submit">сохранить</button>
 </form>
