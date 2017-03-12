@@ -70,7 +70,7 @@ public class AdController {
         Users curUser = Users.Current(session);
 
         if (curUser == null)
-            result.reject("Not logged");
+            return "redirect:/user/login";
 
         if (result.hasErrors()) {
             List<ObjectError> errors = result.getAllErrors();
@@ -123,5 +123,6 @@ public class AdController {
     public ModelAndView getAllAds() {
         return new ModelAndView("adsByEmail.vm");
     }
+    
 
 }
