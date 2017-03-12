@@ -18,7 +18,7 @@ import java.util.Map;
 @Service
 public class AdServiceImpl implements AdService {
     @Autowired
-    AdDAO adDAO;
+    private AdDAO adDAO;
 
     @Override
     public List<Ad> getAllByUserId(Users users) {
@@ -50,20 +50,20 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public Ad getCheapestAd(List<Ad> ads) {
-            long min = Integer.MAX_VALUE;
-            Ad mostCheapest = null;
-            for (Ad ad : ads) {
-                if (min > ad.getTotalPrice()) {
-                    mostCheapest = ad;
-                    min = ad.getTotalPrice();
-                }
+        long min = Integer.MAX_VALUE;
+        Ad mostCheapest = null;
+        for (Ad ad : ads) {
+            if (min > ad.getTotalPrice()) {
+                mostCheapest = ad;
+                min = ad.getTotalPrice();
             }
-            return mostCheapest;
+        }
+        return mostCheapest;
     }
 
     @Override
     public Ad register(Ad ad) {
-       return adDAO.save(ad);
+        return adDAO.save(ad);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class AdServiceImpl implements AdService {
             cheapestAd = getCheapestAd(all);
             mapObject.put("cheapest", cheapestAd);
         }
-        if(cheapest.equals("false") && expensive.equals("false"))
+        if (cheapest.equals("false") && expensive.equals("false"))
             mapObject.put("all", all);
 
         ObjectMapper objectMapper = new ObjectMapper();

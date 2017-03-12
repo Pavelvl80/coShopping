@@ -4,8 +4,8 @@
         <Property name="log-path">/Users/andrii/gromcode</Property>
     </Properties>
     <Appenders>
-        <RollingFile name="RollingFile" fileName="/Users/andrii/gromcode/gromcode.log"
-                     filePattern="/Users/andrii/gromcode/gromcode-%d{yyyy-MM-dd}-%i.log" >
+        <RollingFile name="RollingFile" fileName="D:\logg\Users\andrii\test\uber\logging.log"
+                     filePattern="D:\logg\Users\andrii\test-%d{yyyy-MM-dd}-%i.log" >
             <PatternLayout>
                 <pattern>%d{dd/MMM/yyyy HH:mm:ss,SSS}- %c{1}: %m%n</pattern>
             </PatternLayout>

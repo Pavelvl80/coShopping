@@ -9,27 +9,50 @@
     <title>Registeer</title>
 </head>
 <body>
+##    #foreach($error in $errors)
+##    <div class="errorStyle">
+##        $error.defaultMessage <br>
+##        <br>
+##    </div>
+##    #end
+    #foreach ($error in $errors.keySet())
+    $!error -> $!errors.get($!error) <br>
+    #end
 <div class="in"></div>
 <form action="/user/register-request" method="post" onsubmit="/">
     <input type="text" name="firstName" placeholder="First name"/> <br>
     <input type="text" name="lastName" placeholder="Last name"/> <br>
-    <input type="text" name="email" placeholder="Email"/> <br>
+    <input id="email" type="text" name="email" placeholder="Email"/> <br>
     <input type="text" name="password" placeholder="Password"/><br>
-    <input type="text" name="phone" placeholder="Phone"/><br>
-    <input type="text" name="dateOfBirth" placeholder="dateOfBirth"/>
+    <input id="phone" type="text" name="phone" placeholder="Phone"/><br>
+    <input name="dateOfBirth" placeholder="yyyy-MM-dd"/> <br>
     <input type="text" name="city" placeholder="City"/><br>
     <input type="text" name="attributes" placeholder="attributes"/><br>
 
-    <button id="button"  type="submit">сохранить</button>
+    <button id="button" type="submit" onclick="">сохранить</button>
 </form>
+<script>
+    function validator() {
+        validateEmail($('#email').val())
+        validatePhone($('#phone').val())
+    }
 
-##<script>
-##    $(function () {
-##        $('#button').submit (
-##        window.location = "https://google.com"
-##        )
-##    });
-##</script>
+    function validateEmail(emailValue) {
+        return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailValue)
+    }
+
+    function validatePhone(phoneValue) {
+        return phoneValue == 9;
+    }
+
+    function isNumber(val) {
+        return !isNaN(parseFloat(val)) && isFinite()
+    }
+
+    function isEmtyField(val) {
+
+    }
+</script>
 
 </body>
 </html>

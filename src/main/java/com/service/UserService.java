@@ -11,11 +11,11 @@ import java.util.List;
  * Created by Edvard Piri on 28.01.2017.
  */
 public interface UserService {
-    Users register(Users user);
+    Users register(Users user) throws Exception;
 
     Users login(String email, String pass);
 
-    Users findByEmail(String email);
+    Users getByEmail(String email);
 
     Users getUserById(Long Id);
 

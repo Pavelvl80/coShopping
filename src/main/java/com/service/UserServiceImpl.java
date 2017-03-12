@@ -19,17 +19,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDAO userDAO;
 
-    @Autowired
-    private AdDAO adDAO;
-
     @Override
-    public Users register(Users user) {
+    public Users register(Users user) throws Exception {
         if (user == null)
-            return null;
+            throw  new Exception("User equals null");
         Users checkUser = userDAO.getByEmail(user.getEmail());
-
         if (checkUser != null)
-            return null;
+            throw new Exception("User exist");
         userDAO.save(user);
         return user;
     }
@@ -40,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users findByEmail(String email) {
+    public Users getByEmail(String email) {
         if (email.equals(null) || email == "")
             return null;
         return userDAO.getByEmail(email);

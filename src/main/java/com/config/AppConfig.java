@@ -31,7 +31,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class AppConfig extends WebMvcConfigurerAdapter {
     @Autowired
-    MainInterceptor mainInterceptor;
+    private MainInterceptor mainInterceptor;
 
 
     @Bean

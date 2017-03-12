@@ -9,6 +9,9 @@
     <title>Registeer</title>
 </head>
 <body>
+    #foreach ($error in $errors.keySet())
+        $!error -> $!errors.get($!error) <br>
+    #end
 <div class="in"></div>
 <form action="/ad/register-ad-request" method="post">
     <input type="text" name="itemName" placeholder="item Name"/> <br>

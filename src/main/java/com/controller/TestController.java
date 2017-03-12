@@ -1,28 +1,31 @@
 package com.controller;
 
 import com.dao.TestDAO;
+import com.model.Users;
 import com.service.UserService;
-import com.dao.TestDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created by Edvard Piri on 13.02.2017.
  */
 @Controller
+@RequestMapping("/test")
 public class TestController {
     @Autowired
-    TestDAO TestDAO;
+    private TestDAO TestDAO;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @RequestMapping("/test-put-db")
     public ModelAndView testPutDb() throws Exception {
         Long beforeTime = System.currentTimeMillis();
-        Long result = this.TestDAO.testPutDb(this.userService.findByEmail("lotar@smail.ru"));
+        Long result = TestDAO.testPutDb(userService.getByEmail("lotar@smail.ru"));
         ModelAndView modelAndView = new ModelAndView("test/test.vm");
         modelAndView.addObject("allTime", System.currentTimeMillis() - beforeTime);
         modelAndView.addObject("DbTime", result);
@@ -32,11 +35,18 @@ public class TestController {
     @RequestMapping("/test-get-db")
     public ModelAndView testGetDb() throws Exception {
         Long beforeTime = System.currentTimeMillis();
-        Long result = this.TestDAO.testGetDb();
+        Long result = TestDAO.testGetDb();
         ModelAndView modelAndView = new ModelAndView("test/test.vm");
         modelAndView.addObject("allTime", System.currentTimeMillis() - beforeTime);
         modelAndView.addObject("DbTime", result);
         return modelAndView;
+    }
+
+    @RequestMapping("test-session")
+    public String testSession(HttpServletRequest request) {
+        if (Users.Current(request.getSession()) == null)
+            return "redirect:/user/login";
+        return "redirect:/user/" + Users.Current(request.getSession()).getId();
     }
 
 }

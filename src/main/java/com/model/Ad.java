@@ -31,7 +31,7 @@ public class Ad extends BaseEntity {
     @JsonIgnore
     private Users owner;
     @JsonIgnore
-    private Users participants;
+    private List<Users> participants;
 
     public Ad() {
         this.dateExpires = new Date();
@@ -102,9 +102,11 @@ public class Ad extends BaseEntity {
         return owner;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "PARTICIPANTS_ID")
-    public Users getParticipants() {
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "AD_PARTICIPANTS",
+            joinColumns = @JoinColumn(name = "AD_ID"),
+            inverseJoinColumns = @JoinColumn(name = "USER_ID"))
+    public List<Users> getParticipants() {
         return participants;
     }
 
@@ -144,7 +146,7 @@ public class Ad extends BaseEntity {
         this.owner = owner;
     }
 
-    public void setParticipants(Users participants) {
+    public void setParticipants(List<Users> participants) {
         this.participants = participants;
     }
 

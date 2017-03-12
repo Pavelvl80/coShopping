@@ -1,9 +1,13 @@
 package com.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +42,6 @@ public class Users extends BaseEntity {
 //    private boolean isLogged;
 
     public Users() {
-        this.dateOfBirth = new Date();
         this.lastLogin = new Date();
         this.dateRegistered = new Date();
         this.isActive = 0L;
@@ -95,47 +98,69 @@ public class Users extends BaseEntity {
     }
 
     @Column(name = "FIRST_NAME")
+    @NotEmpty(message = "Please enter first name")
+    @NotNull()
+    @Size(min = 3, max = 15, message = "Your first name must be between 3 and 15 characters")
+    @Pattern(regexp = "\\D*") //no numbers
     public String getFirstName() {
         return firstName;
     }
 
     @Column(name = "LAST_NAME")
+    @NotEmpty(message = "Please enter last name")
+    @NotNull()
+    @Size(min = 3, max = 15, message = "Your last name must be between 3 and 15 characters")
+    @Pattern(regexp = "\\D*") //no numbers
     public String getLastName() {
         return lastName;
     }
 
     @Column(name = "EMAIL")
+    @NotEmpty(message = "Please enter last name")
+    @NotNull()
+    @Size(min = 3, max = 15, message = "Your email must be between 3 and 15 characters")
+    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")
     public String getEmail() {
         return email;
     }
 
     @JsonIgnore
     @Column(name = "PASSWORD")
+    @NotEmpty(message = "Please enter password name")
+    @NotNull()
+    @Size(min = 6, max = 15, message = "Your password must be between 6 and 15 characters")
     public String getPassword() {
         return password;
     }
 
     @Column(name = "PHONE")
+    @NotEmpty(message = "Please enter your phone number")
+    @Size(min = 10, max = 10, message = "Wrong phone number format")
     public String getPhone() {
         return phone;
     }
 
+
     @Column(name = "IS_EMAIL_VERIFIED")
+    @NotNull
     public Long getIsEmailVerified() {
         return isEmailVerified;
     }
 
     @Column(name = "IS_PHONE_VERIFIED")
+    @NotNull
     public Long getIsPhoneVerified() {
         return isPhoneVerified;
     }
 
     @Column(name = "DATE_OF_BIRTH")
+    @NotNull
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
     @Column(name = "CITY")
+    @NotNull
     public String getCity() {
         return city;
     }
@@ -145,12 +170,13 @@ public class Users extends BaseEntity {
         return adsPublished;
     }
 
-    @OneToMany(targetEntity = Ad.class, mappedBy = "participants", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade=CascadeType.ALL, mappedBy="participants")
     public List<Ad> getAdsJoined() {
         return adsJoined;
     }
 
     @Column(name = "RATING")
+    @NotNull
     public String getRating() {
         return rating;
     }
@@ -166,16 +192,19 @@ public class Users extends BaseEntity {
     }
 
     @Column(name = "LAST_LOGIN")
+    @NotNull
     public Date getLastLogin() {
         return lastLogin;
     }
 
     @Column(name = "DATE_REGISTERED")
+    @NotNull
     public Date getDateRegistered() {
         return dateRegistered;
     }
 
     @Column(name = "IS_ACTIVE")
+    @NotNull
     public Long getIsActive() {
         return isActive;
     }
@@ -257,7 +286,9 @@ public class Users extends BaseEntity {
         this.isActive = isActive;
     }
 
-//    public void setLogged(boolean logged) {
+    }
+
+    //    public void setLogged(boolean logged) {
 //        isLogged = logged;
 //    }
-}
+

@@ -8,5 +8,6 @@ import com.model.BaseEntity;
 public interface AbstractDAO<T extends BaseEntity> {
     T save(T t);
 
+
     T getById(T t);
 }

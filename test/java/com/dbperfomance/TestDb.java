@@ -46,7 +46,7 @@ public class TestDb {
 //
 //    @TestDb
 //    public void testFind() throws Exception {
-//        Users user = userService.findByEmail("lotar@smail.ru");
+//        Users user = userService.getByEmail("lotar@smail.ru");
 //        List<Ad> personList = adService.getAllAdsByOwner(user);
 //        assertEquals(1, personList.size());
 //        assertEquals("Phillip", personList.get(0).getFirstName());
