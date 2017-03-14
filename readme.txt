@@ -15,3 +15,6 @@ ad/get-all-ads
 ad/{id}
 ad/(id)/edit
 ad/{id}/join
+
+id for testing - 13522
+button in ad/{id} link
