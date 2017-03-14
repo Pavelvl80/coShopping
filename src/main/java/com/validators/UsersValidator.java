@@ -57,7 +57,7 @@ public class UsersValidator implements Validator {
             return;
         int index = 0;
         for (Cities city : Cities.values())
-            if (userCity == city.toString()) {
+            if (userCity.equals(city.toString())) {
                 index++;
             }
         if (index == 0)

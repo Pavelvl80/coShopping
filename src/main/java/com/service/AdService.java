@@ -5,6 +5,7 @@ import com.model.Users;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Edvard Piri on 28.01.2017.
@@ -25,4 +26,7 @@ public interface AdService {
     Ad getAbById(Long id);
 
     Ad save(Ad ad);
+
+    Ad joinToAdService(Ad ad);
+
 }

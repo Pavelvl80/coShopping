@@ -44,9 +44,9 @@ public class TestController {
 
     @RequestMapping("test-session")
     public String testSession(HttpServletRequest request) {
-        if (Users.Current(request.getSession()) == null)
+        if (Users.current(request.getSession()) == null)
             return "redirect:/user/login";
-        return "redirect:/user/" + Users.Current(request.getSession()).getId();
+        return "redirect:/user/" + Users.current(request.getSession()).getId();
     }
 
 }

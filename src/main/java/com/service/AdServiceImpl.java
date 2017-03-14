@@ -11,6 +11,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Edvard Piri on 28.01.2017.
@@ -96,5 +97,10 @@ public class AdServiceImpl implements AdService {
     @Override
     public Ad save(Ad ad) {
         return adDAO.save(ad);
+    }
+
+    @Override
+    public Ad joinToAdService(Ad ad) {
+        return null;
     }
 }

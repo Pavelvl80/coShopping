@@ -9,6 +9,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Edvard Piri on 25.12.2016.
@@ -31,7 +32,7 @@ public class Ad extends BaseEntity {
     @JsonIgnore
     private Users owner;
     @JsonIgnore
-    private List<Users> participants;
+    private Set<Users> participants;
 
     public Ad() {
         this.dateExpires = new Date();
@@ -102,11 +103,11 @@ public class Ad extends BaseEntity {
         return owner;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "AD_PARTICIPANTS",
-            joinColumns = @JoinColumn(name = "AD_ID"),
-            inverseJoinColumns = @JoinColumn(name = "USER_ID"))
-    public List<Users> getParticipants() {
+            joinColumns = {@JoinColumn(name = "AD_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "USER_ID")})
+    public Set<Users> getParticipants() {
         return participants;
     }
 
@@ -146,7 +147,7 @@ public class Ad extends BaseEntity {
         this.owner = owner;
     }
 
-    public void setParticipants(List<Users> participants) {
+    public void setParticipants(Set<Users> participants) {
         this.participants = participants;
     }
 

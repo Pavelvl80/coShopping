@@ -16,7 +16,7 @@ public class MainInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
-        Users curUser = Users.Current(session);
+        Users curUser = Users.current(session);
         String logMessage;
         Date date = new Date();
         if (curUser != null) {

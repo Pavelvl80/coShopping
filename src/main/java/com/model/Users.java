@@ -10,6 +10,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Edvard Piri on 25.12.2016.
@@ -27,12 +28,12 @@ public class Users extends BaseEntity {
     private Long isPhoneVerified;
     private Date dateOfBirth;
     private String city;
-    private List<Ad> adsPublished;
-    private List<Ad> adsJoined;
+    private Set<Ad> adsPublished;
+    private Set<Ad> adsJoined;
     private String rating;
     private String attributes;
 
-    private List<FriendRelation> friends;
+    private Set<FriendRelation> friends;
 
     private Date lastLogin;
     private Date dateRegistered;
@@ -85,7 +86,7 @@ public class Users extends BaseEntity {
         session.setAttribute("logged", curUser);
     }
 
-    public static Users Current(HttpSession session) {
+    public static Users current(HttpSession session) {
         return (Users) session.getAttribute("logged");
     }
 
@@ -118,8 +119,8 @@ public class Users extends BaseEntity {
     @Column(name = "EMAIL")
     @NotEmpty(message = "Please enter last name")
     @NotNull()
-    @Size(min = 3, max = 15, message = "Your email must be between 3 and 15 characters")
-    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")
+    @Size(min = 3, max = 20, message = "Your email must be between 3 and 20 characters")
+//    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")
     public String getEmail() {
         return email;
     }
@@ -135,20 +136,18 @@ public class Users extends BaseEntity {
 
     @Column(name = "PHONE")
     @NotEmpty(message = "Please enter your phone number")
-    @Size(min = 10, max = 10, message = "Wrong phone number format")
+    @Size(min = 8, max = 13, message = "Wrong phone number format")
     public String getPhone() {
         return phone;
     }
 
 
     @Column(name = "IS_EMAIL_VERIFIED")
-    @NotNull
     public Long getIsEmailVerified() {
         return isEmailVerified;
     }
 
     @Column(name = "IS_PHONE_VERIFIED")
-    @NotNull
     public Long getIsPhoneVerified() {
         return isPhoneVerified;
     }
@@ -160,23 +159,23 @@ public class Users extends BaseEntity {
     }
 
     @Column(name = "CITY")
+    @NotEmpty(message = "Please enter your city")
     @NotNull
     public String getCity() {
         return city;
     }
 
     @OneToMany(targetEntity = Ad.class, mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public List<Ad> getAdsPublished() {
+    public Set<Ad> getAdsPublished() {
         return adsPublished;
     }
 
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy="participants")
-    public List<Ad> getAdsJoined() {
+    @ManyToMany(cascade=CascadeType.ALL, mappedBy="participants", fetch = FetchType.EAGER)
+    public Set<Ad> getAdsJoined() {
         return adsJoined;
     }
 
     @Column(name = "RATING")
-    @NotNull
     public String getRating() {
         return rating;
     }
@@ -187,12 +186,11 @@ public class Users extends BaseEntity {
     }
 
     @OneToMany(targetEntity = FriendRelation.class, mappedBy = "toUserId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public List<FriendRelation> getFriends() {
+    public Set<FriendRelation> getFriends() {
         return friends;
     }
 
     @Column(name = "LAST_LOGIN")
-    @NotNull
     public Date getLastLogin() {
         return lastLogin;
     }
@@ -204,7 +202,6 @@ public class Users extends BaseEntity {
     }
 
     @Column(name = "IS_ACTIVE")
-    @NotNull
     public Long getIsActive() {
         return isActive;
     }
@@ -253,11 +250,11 @@ public class Users extends BaseEntity {
         this.city = city;
     }
 
-    public void setAdsPublished(List<Ad> adsPublished) {
+    public void setAdsPublished(Set<Ad> adsPublished) {
         this.adsPublished = adsPublished;
     }
 
-    public void setAdsJoined(List<Ad> adsJoined) {
+    public void setAdsJoined(Set<Ad> adsJoined) {
         this.adsJoined = adsJoined;
     }
 
@@ -270,7 +267,7 @@ public class Users extends BaseEntity {
     }
 
 
-    public void setFriends(List<FriendRelation> friends) {
+    public void setFriends(Set<FriendRelation> friends) {
         this.friends = friends;
     }
 

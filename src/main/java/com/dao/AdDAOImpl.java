@@ -6,10 +6,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Edvard Piri on 28.01.2017.
@@ -46,5 +43,6 @@ public class AdDAOImpl<T> extends AbstractDAOImpl<Ad> implements AdDAO {
         query.setParameter("id", id);
         return (Ad) query.uniqueResult();
     }
+
 }
 

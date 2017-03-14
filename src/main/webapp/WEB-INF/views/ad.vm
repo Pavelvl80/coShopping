@@ -13,6 +13,24 @@
     $ad.dateEdited dateEdited <br>
     $ad.isActive isActive <br>
     $ad.owner.id owner id <br>
+    <a href="localhost:8080/user/$ad.ownre.id">Owner</a> <br>
+
+
+    <button id="join" onclick="join()">Join to ad</button>
+
+<script>
+    function join() {
+        $.ajax({
+            url: '/ad/' + $ad.id + '/join',
+            success: function (data) {
+                alert('succes')
+            },
+            error: function (xhr) {
+                alert('error');
+            }
+        });
+    };
+</script>
 
 </body>
 </html>

@@ -1,9 +1,7 @@
 package com.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.Ad;
 import com.model.Users;
-import com.utils.ToJSON;
 import com.service.AdService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Edvard Piri on 04.02.2017.
@@ -33,9 +28,11 @@ import java.util.Map;
 @RequestMapping("/ad")
 public class AdController {
 
-    //TODO incapsulation..private is missed
     @Autowired
     private AdService adService;
+
+    @Autowired
+    private UserService userService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -58,7 +55,7 @@ public class AdController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @RequestMapping("/register-ad")
+    @RequestMapping("/register")
     public ModelAndView registerAd(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("registerAd.vm");
         modelAndView.addObject("errors", request.getSession().getAttribute("errors"));
@@ -67,7 +64,7 @@ public class AdController {
 
     @RequestMapping("/register-ad-request")
     public String registerAdRequest(HttpSession session, @ModelAttribute Ad ad, BindingResult result) {
-        Users curUser = Users.Current(session);
+        Users curUser = Users.current(session);
 
         if (curUser == null)
             return "redirect:/user/login";
@@ -86,18 +83,18 @@ public class AdController {
 
         ad.setOwner(curUser);
         adService.register(ad);
-        return "redirect:/user/" + Users.Current(session);
+        return "redirect:/user/" + Users.current(session).getId();
     }
 
-    @RequestMapping("/{AdId}")
-    public ModelAndView adProfile(@PathVariable String AdId) {
-        Ad ad = adService.getAbById(Long.parseLong(AdId));
+    @RequestMapping("/{adId}")
+    public ModelAndView adProfile(@PathVariable String adId) {
+        Ad ad = adService.getAbById(Long.parseLong(adId));
         ModelAndView modelAndView = new ModelAndView("ad.vm");
         modelAndView.addObject("ad", ad);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit{adId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{adId}/edit", method = RequestMethod.GET)
     public ModelAndView adEdit(@PathVariable String adId) {
         Ad ad = adService.getAbById(Long.valueOf(adId));
         if (ad == null)
@@ -107,7 +104,7 @@ public class AdController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit{adId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{adId}/edit", method = RequestMethod.POST)
     public String adEditRequest(@ModelAttribute Ad newAd, @PathVariable String adId) {
         //TODO get old add from cash
         Ad ad = adService.getAbById(Long.valueOf(adId));
@@ -118,11 +115,43 @@ public class AdController {
         return "redirect:/ad/edit" + ad.getId();
     }
 
+    @RequestMapping("/{adId}/join")
+    public ResponseEntity<String> joinToAd(HttpServletRequest request, @PathVariable String adId) {
+
+        Users user = Users.current(request.getSession());
+        if (user == null)
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        if (user.getId().equals(adId))
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
+        //TODO cash
+        Ad curAd = adService.getAbById(Long.valueOf(adId));
+        Users curUser = userService.getUserById(user.getId());
+
+
+        Set<Users> participants = new HashSet<>();
+        Set<Ad> adsJoined = new HashSet<>();
+
+        participants.addAll(curAd.getParticipants());
+        adsJoined.addAll(curUser.getAdsJoined());
+
+        adsJoined.add(curAd);
+        participants.add(curUser);
+
+        curUser.setAdsJoined(adsJoined);
+        curAd.setParticipants(participants);
+
+        userService.save(curUser);
+
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 
     @RequestMapping("/get-all-ads")
     public ModelAndView getAllAds() {
         return new ModelAndView("adsByEmail.vm");
     }
-    
+
 
 }

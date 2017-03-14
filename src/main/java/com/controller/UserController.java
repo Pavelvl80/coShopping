@@ -15,7 +15,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -61,6 +60,7 @@ public class UserController {
 
 
         //Validation code
+        Users newUser = user;
         usersValidator.validate(user, result);
 
 //        check error here
@@ -105,7 +105,7 @@ public class UserController {
 
     @RequestMapping("/login-request")
     public ResponseEntity<String> login(HttpSession session, @RequestParam String email, @RequestParam String password) {
-        if (Users.Current(session) != null)
+        if (Users.current(session) != null)
             return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
         Users curUser = userService.login(email, password);
         if (curUser == null)
@@ -122,7 +122,7 @@ public class UserController {
 
     ModelAndView retrunPagewithUser(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(Users.Current(session));
+        modelAndView.addObject(Users.current(session));
         return modelAndView;
     }
 
@@ -137,7 +137,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{userId}/edit", method = RequestMethod.GET)
     public ModelAndView editUser(@PathVariable String userId) {
         Users user = userService.getUserById(Long.valueOf(userId));
         ModelAndView modelAndView = new ModelAndView("editUser.vm");
@@ -145,7 +145,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{userId}/edit", method = RequestMethod.POST)
     public String editUserRequest(@ModelAttribute Users newUser, @PathVariable String userId) {
         //TODO get old user from cash
         Users user = userService.getUserById(Long.valueOf(userId));
@@ -158,6 +158,10 @@ public class UserController {
         userService.save(newUser);
         return "redirect:/user/edit" + newUser.getId();
     }
+
+
+
+
 
     @ExceptionHandler(Exception.class)
     public ModelAndView handleError(HttpServletRequest req, Exception ex) {
