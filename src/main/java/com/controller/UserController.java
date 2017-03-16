@@ -160,9 +160,6 @@ public class UserController {
     }
 
 
-
-
-
     @ExceptionHandler(Exception.class)
     public ModelAndView handleError(HttpServletRequest req, Exception ex) {
         logger.error("Request: " + req.getRequestURL() + " raised " + ex);

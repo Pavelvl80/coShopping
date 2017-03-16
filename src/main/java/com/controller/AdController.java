@@ -115,34 +115,27 @@ public class AdController {
         return "redirect:/ad/edit" + ad.getId();
     }
 
-    @RequestMapping("/{adId}/join")
+    @RequestMapping("/{adId}/join", method = RequestMethod.POST)
     public ResponseEntity<String> joinToAd(HttpServletRequest request, @PathVariable String adId) {
+        Users curUser = Users.current(request.getSession());
 
-        Users user = Users.current(request.getSession());
-        if (user == null)
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        if (user.getId().equals(adId))
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        if (curUser == null)
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
-        //TODO cash
+        Long adIdLong;
+        try {
+            adIdLong = Long.valueOf(adId);
+        } catch (NumberFormatException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if (curUser.getId().equals(adIdLong))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        //TODO optimise
         Ad curAd = adService.getAbById(Long.valueOf(adId));
-        Users curUser = userService.getUserById(user.getId());
 
-
-        Set<Users> participants = new HashSet<>();
-        Set<Ad> adsJoined = new HashSet<>();
-
-        participants.addAll(curAd.getParticipants());
-        adsJoined.addAll(curUser.getAdsJoined());
-
-        adsJoined.add(curAd);
-        participants.add(curUser);
-
-        curUser.setAdsJoined(adsJoined);
-        curAd.setParticipants(participants);
-
-        userService.save(curUser);
-
+        //TODO create and save order
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

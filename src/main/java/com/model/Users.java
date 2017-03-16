@@ -29,7 +29,7 @@ public class Users extends BaseEntity {
     private Date dateOfBirth;
     private String city;
     private Set<Ad> adsPublished;
-    private Set<Ad> adsJoined;
+    private Set<Order> orders;
     private String rating;
     private String attributes;
 
@@ -170,9 +170,9 @@ public class Users extends BaseEntity {
         return adsPublished;
     }
 
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy="participants", fetch = FetchType.EAGER)
-    public Set<Ad> getAdsJoined() {
-        return adsJoined;
+    //TODO one to many
+    public Set<Order> getOrders() {
+        return orders;
     }
 
     @Column(name = "RATING")
@@ -252,10 +252,6 @@ public class Users extends BaseEntity {
 
     public void setAdsPublished(Set<Ad> adsPublished) {
         this.adsPublished = adsPublished;
-    }
-
-    public void setAdsJoined(Set<Ad> adsJoined) {
-        this.adsJoined = adsJoined;
     }
 
     public void setRating(String rating) {
