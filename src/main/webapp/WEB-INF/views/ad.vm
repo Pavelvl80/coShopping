@@ -6,30 +6,45 @@
 </head>
 <body>
     $ad.itemName item name <br>
-    $ad.totalPrice totalPrice <br>
-    $ad.city city <br>
-    $ad.dateExpires dateExpires <br>
-    $ad.dateCreated dateCreated <br>
-    $ad.dateEdited dateEdited <br>
+    $ad.itemsCount itemsCount <br>
+    $ad.pricePerItem Items count <br>
+    $ad.itemsReserved Price per item <br>
+    $ad.pricePerItem dateExpires <br>
+    $ad.itemsReserved itemsReserved <br>
+    $!ad.dateEdited dateEdited <br>
     $ad.isActive isActive <br>
     $ad.owner.id owner id <br>
-    <a href="localhost:8080/user/$ad.ownre.id">Owner</a> <br>
+<a href="localhost:8080/user/$ad.ownre.id">Owner</a> <br>
 
-
-    <button id="join" onclick="join()">Join to ad</button>
+<div> JOIN <br>
+    Items count <input id="itemscount" oninput="calculate($('#itemscount').val())"/>
+    <div class="content">Price <span class='value'>0</span></div>
+    <button id="join" onclick="join($('#itemscount').val())">Join to ad</button>
+</div>
 
 <script>
-    function join() {
+    function join(itemsCount) {
+        debugger
         $.ajax({
             url: '/ad/' + $ad.id + '/join',
+            type: 'POST',
+            data: ({
+                itemsCount: itemsCount,
+            }),
             success: function (data) {
-                alert('succes')
+                debugger
+                alert('succes' + data.valueOf())
             },
             error: function (xhr) {
                 alert('error');
             }
         });
     };
+
+    function calculate(itemscount) {
+        var price = itemscount * $ad.pricePerItem;
+        $(".content .value").html(itemscount * $ad.pricePerItem);
+    }
 </script>
 
 </body>

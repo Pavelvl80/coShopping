@@ -1,9 +1,10 @@
 package com.controller;
 
 import com.model.Ad;
+import com.model.Order;
 import com.model.Users;
 import com.service.AdService;
-import com.service.UserService;
+import com.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -30,9 +31,8 @@ public class AdController {
 
     @Autowired
     private AdService adService;
-
     @Autowired
-    private UserService userService;
+    private OrderService orderService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -110,17 +110,20 @@ public class AdController {
         Ad ad = adService.getAbById(Long.valueOf(adId));
         newAd.setId(ad.getId());
         newAd.setOwner(ad.getOwner());
-        newAd.setParticipants(ad.getParticipants());
+        newAd.setOrders(ad.getOrders());
+        newAd.setDateEdited(new Date());
         adService.save(newAd);
         return "redirect:/ad/edit" + ad.getId();
     }
 
-    @RequestMapping("/{adId}/join", method = RequestMethod.POST)
-    public ResponseEntity<String> joinToAd(HttpServletRequest request, @PathVariable String adId) {
+    @RequestMapping(value = "/{adId}/join", method = RequestMethod.POST)
+    public ResponseEntity<String> joinToAd(HttpServletRequest request, @PathVariable String adId, @RequestParam String itemsCount) {
         Users curUser = Users.current(request.getSession());
 
         if (curUser == null)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        if(itemsCount == null || itemsCount.equals("0"))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         Long adIdLong;
         try {
@@ -136,7 +139,15 @@ public class AdController {
         Ad curAd = adService.getAbById(Long.valueOf(adId));
 
         //TODO create and save order
-
+        Integer itemsCountInt;
+        try {
+            itemsCountInt = Integer.parseInt(itemsCount);
+        } catch (NumberFormatException e ) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Order order = orderService.save(new Order(curAd, curUser, itemsCountInt, new Date()));
+        if(order == null)
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

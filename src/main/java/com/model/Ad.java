@@ -1,14 +1,9 @@
 package com.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import oracle.sql.DATE;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,7 +24,7 @@ public class Ad extends BaseEntity {
     private Date dateEdited;
     private Long isActive;
 
-    //private Supplier supplier;
+    private Supplier supplier;
 
     @JsonIgnore
     private Users owner;
@@ -45,14 +40,11 @@ public class Ad extends BaseEntity {
     }
 
     //TODO last home work
-    public Ad(String itemName, Long totalPrice, Users owner) {
+    public Ad(String itemName, Integer itemsCount, Double pricePerItem, Integer itemsReserved) {
         this.itemName = itemName;
-        this.owner = owner;
-
-        this.dateExpires = new Date();
-        this.dateCreated = new Date();
-        this.dateEdited = new Date();
-        this.isActive = 1l;
+        this.itemsCount = itemsCount;
+        this.pricePerItem = pricePerItem;
+        this.itemsReserved = itemsReserved;
     }
 
     @JsonIgnore
@@ -66,6 +58,21 @@ public class Ad extends BaseEntity {
     @Column(name = "ITEM_NAME")
     public String getItemName() {
         return itemName;
+    }
+
+    @Column(name = "ITEMS_COUNT")
+    public Integer getItemsCount() {
+        return itemsCount;
+    }
+
+    @Column(name = "PRICE_PER_ITEM")
+    public Double getPricePerItem() {
+        return pricePerItem;
+    }
+
+    @Column(name = "ITEMS_RESERVED")
+    public Integer getItemsReserved() {
+        return itemsReserved;
     }
 
     @Column(name = "DATE_EXPIRES")
@@ -95,15 +102,7 @@ public class Ad extends BaseEntity {
         return owner;
     }
 
-    /*@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "AD_PARTICIPANTS",
-            joinColumns = {@JoinColumn(name = "AD_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "USER_ID")})
-    public Set<Users> getParticipants() {
-        return participants;
-    }*/
-
-    @OneToMany//TODO
+    @OneToMany(targetEntity = Order.class, mappedBy = "ad", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public Set<Order> getOrders() {
         return orders;
     }
@@ -114,6 +113,18 @@ public class Ad extends BaseEntity {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public void setItemsCount(Integer itemsCount) {
+        this.itemsCount = itemsCount;
+    }
+
+    public void setPricePerItem(Double pricePerItem) {
+        this.pricePerItem = pricePerItem;
+    }
+
+    public void setItemsReserved(Integer itemsReserved) {
+        this.itemsReserved = itemsReserved;
     }
 
     public void setDateExpires(Date dateExpires) {

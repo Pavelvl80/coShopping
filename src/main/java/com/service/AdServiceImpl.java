@@ -38,28 +38,28 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public Ad getExpensiveAd(List<Ad> ads) {
-        long max = Integer.MIN_VALUE;
-        Ad mostExpensive = null;
-        for (Ad ad : ads) {
-            if (max < ad.getTotalPrice()) {
-                mostExpensive = ad;
-                max = ad.getTotalPrice();
-            }
-        }
-        return mostExpensive;
+//        long max = Integer.MIN_VALUE;
+//        Ad mostExpensive = null;
+//        for (Ad ad : ads) {
+//            if (max < ad.getTotalPrice()) {
+//                mostExpensive = ad;
+//                max = ad.getTotalPrice();
+//            }
+//        }
+        return null;
     }
 
     @Override
     public Ad getCheapestAd(List<Ad> ads) {
-        long min = Integer.MAX_VALUE;
-        Ad mostCheapest = null;
-        for (Ad ad : ads) {
-            if (min > ad.getTotalPrice()) {
-                mostCheapest = ad;
-                min = ad.getTotalPrice();
-            }
-        }
-        return mostCheapest;
+//        long min = Integer.MAX_VALUE;
+//        Ad mostCheapest = null;
+//        for (Ad ad : ads) {
+//            if (min > ad.getPricePerItem()) {
+//                mostCheapest = ad;
+//                min = (Long) ad.getPricePerItem();
+//            }
+//        }
+        return null;
     }
 
     @Override

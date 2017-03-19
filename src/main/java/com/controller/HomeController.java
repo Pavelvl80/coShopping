@@ -16,12 +16,12 @@ public class HomeController {
 //    public ModelAndView index() {
 //        return new ModelAndView("index.vm");
 //    }
-
-    @RequestMapping(name = "/home")
-    public String home(HttpSession session) {
-        Users curUser = Users.current(session);
-        if(curUser == null)
-            return "redirect:/user/login";
-        return "redirect:/user/" + curUser.getId();
-    }
+//
+//    @RequestMapping(name = "/home")
+//    public String home(HttpSession session) {
+//        Users curUser = Users.current(session);
+//        if(curUser == null)
+//            return "redirect:/user/login";
+//        return "redirect:/user/" + curUser.getId();
+//    }
 }

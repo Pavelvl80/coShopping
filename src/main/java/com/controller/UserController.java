@@ -151,7 +151,6 @@ public class UserController {
         Users user = userService.getUserById(Long.valueOf(userId));
         newUser.setId(user.getId());
         newUser.setAdsPublished(user.getAdsPublished());
-        newUser.setAdsJoined(user.getAdsJoined());
         newUser.setFriends(user.getFriends());
         if (newUser.equals(user))
             return "redirect:/user/edit";

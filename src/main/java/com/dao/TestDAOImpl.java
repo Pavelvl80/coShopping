@@ -28,29 +28,29 @@ public class TestDAOImpl extends AbstractDAOImpl<Ad> implements TestDAO {
 //    @Autowired
 //    private AdDAO adDAO;
 
-    public Long testPutDb(Users user) throws Exception {
-        Long beforeTime = System.currentTimeMillis();
-        for (int i = 0; i < 1000; i++) {
-            Long random = (long) Math.random() * 1000 + 10;
-            Ad ad = new Ad("ITEM", random, "CITY_TEST", user);
-            //String itemName, Integer totalPrice, String city, Users owner, Users participants
-            save(ad);
-            if (i % 20 == 0) {
-                getSession().flush();
-                getSession().clear();
-            }
-        }
-        long afterTime = System.currentTimeMillis();
-//        getSession().close();
-        return afterTime - beforeTime;
-    }
-
-    public Long testGetDb() {
-        Long beforeTime = System.currentTimeMillis();
-        String hql = "from Ad t where t.owner = 1102";
-        Query query = getSession().createQuery(hql);
-        List<Ad> list = query.list();
-        Long afterTime = System.currentTimeMillis();
-        return afterTime - beforeTime;
-    }
+//    public Long testPutDb(Users user) throws Exception {
+//        Long beforeTime = System.currentTimeMillis();
+//        for (int i = 0; i < 1000; i++) {
+//            Long random = (long) Math.random() * 1000 + 10;
+//            Ad ad = new Ad("ITEM", random, "CITY_TEST", user);
+//            //String itemName, Integer totalPrice, String city, Users owner, Users participants
+//            save(ad);
+//            if (i % 20 == 0) {
+//                getSession().flush();
+//                getSession().clear();
+//            }
+//        }
+//        long afterTime = System.currentTimeMillis();
+////        getSession().close();
+//        return afterTime - beforeTime;
+//    }
+//
+//    public Long testGetDb() {
+//        Long beforeTime = System.currentTimeMillis();
+//        String hql = "from Ad t where t.owner = 1102";
+//        Query query = getSession().createQuery(hql);
+//        List<Ad> list = query.list();
+//        Long afterTime = System.currentTimeMillis();
+//        return afterTime - beforeTime;
+//    }
 }

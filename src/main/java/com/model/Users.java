@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -170,7 +169,7 @@ public class Users extends BaseEntity {
         return adsPublished;
     }
 
-    //TODO one to many
+    @OneToMany(targetEntity = Order.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public Set<Order> getOrders() {
         return orders;
     }
@@ -262,6 +261,9 @@ public class Users extends BaseEntity {
         this.attributes = attributes;
     }
 
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
 
     public void setFriends(Set<FriendRelation> friends) {
         this.friends = friends;
