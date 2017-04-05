@@ -5,6 +5,7 @@ import com.model.Order;
 import com.model.Users;
 import com.service.AdService;
 import com.service.OrderService;
+import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -33,6 +34,8 @@ public class AdController {
     private AdService adService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private UserService userService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -42,14 +45,22 @@ public class AdController {
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 
+    @RequestMapping("/get-all-ads")
+    public ModelAndView getAllAds() {
+        return new ModelAndView("adsByEmail.vm");
+    }
 
     @RequestMapping(value = "/get-ads-by-email/expensive={expensive}&cheapest={cheapest}")
     public ResponseEntity getAdsByEmail(@RequestParam String email,
                                         @PathVariable String expensive,
                                         @PathVariable String cheapest) throws Exception {
-        if (email == null || email.equals("")) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if (email == null || email.equals(""))
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if (userService.getByEmail(email) == null)
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         List<Ad> ads = adService.getAllAdsByOwnerEmail(email);
-        if (ads == null) return new ResponseEntity(HttpStatus.NOT_FOUND);
+        if (ads == null)
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         String result = adService.getAdsByEmailService(ads, expensive, cheapest);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -122,7 +133,7 @@ public class AdController {
 
         if (curUser == null)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        if(itemsCount == null || itemsCount.equals("0"))
+        if (itemsCount == null || itemsCount.equals("0"))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         Long adIdLong;
@@ -142,19 +153,13 @@ public class AdController {
         Integer itemsCountInt;
         try {
             itemsCountInt = Integer.parseInt(itemsCount);
-        } catch (NumberFormatException e ) {
+        } catch (NumberFormatException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Order order = orderService.save(new Order(curAd, curUser, itemsCountInt, new Date()));
-        if(order == null)
+        if (order == null)
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-
-    @RequestMapping("/get-all-ads")
-    public ModelAndView getAllAds() {
-        return new ModelAndView("adsByEmail.vm");
     }
 
 

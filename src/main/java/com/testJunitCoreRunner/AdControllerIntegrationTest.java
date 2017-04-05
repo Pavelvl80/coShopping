@@ -1,4 +1,4 @@
-package com.other;
+package com.testJunitCoreRunner;
 
 import com.config.AppConfig;
 import org.junit.Before;
